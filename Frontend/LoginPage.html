@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cat Paradise Hotel</title>
+    <title>Přihlášení | Cat Paradise Hotel</title>
     <link rel="stylesheet" href="Styles/LoginStyles.css">
-    <link rel="javascript" href="JavaScript/Login.js">
-    <link rel="javascript" href="JavaScript/SideBar.js">
+    <script src="JavaScript/Login.js"></script>
+    <script src="JavaScript/SideBar.js"></script>
     <link rel="icon" href="Images/icon.png" type="image/png">
     <style>
         @font-face {
@@ -89,7 +89,40 @@
 </header>
 
 <main>
+    <div class="login-container">
+        <!-- Levá strana: Login form -->
+        <div class="login-panel">
+            <h2>Vítejte zpět!</h2>
+            <form>
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="email@domena.cz" required>
 
+                <div class="pass-wrapper">
+                    <label for="password">Heslo</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                    <button type="button" id="togglePass"> &#128065; </button>
+                </div>
+                <div class="remember-box">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Zůstat přihlášen</label>
+                </div>
+                <a href="#" class="forgot">Zapomenuté heslo?</a>
+                <button type="submit" class="login-btn">Přihlásit se</button>
+            </form>
+        </div>
+        <!-- Pravá strana: Pouze obrázek -->
+        <div class="login-image"> <img src="Images/login.png" alt="log-img"> </div>
+    </div>
+    <!-- Skrytý obnovovací formulář -->
+    <div id="forgotPasswordForm" style="display:none;">
+        <label for="resetEmail">Zadejte svůj e-mail</label>
+        <input type="email" id="resetEmail" placeholder="email@domena.cz" required>
+        <button type="button" id="sendResetRequest">Odeslat</button>
+    </div>
+    <!-- Skrytá úspěšná zpráva -->
+    <div id="checkEmailMessage" style="display:none;">
+        Prosím, zkontrolujte svůj e-mail pro další instrukce.
+    </div>
 </main>
 
 <footer class="footer">
@@ -129,6 +162,7 @@
     </div>
     <div class="footer-bottom">
         <p>&copy; 2025 CatParadise Hotel • Všechna práva vyhrazena</p>
+        <p class="love">Made with love &#128571;</p>
     </div>
 </footer>
 </body>
