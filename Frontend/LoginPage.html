@@ -93,13 +93,15 @@
         <!-- Levá strana: Login form -->
         <div class="login-panel">
             <h2>Vítejte zpět!</h2>
-            <form>
+            <form id="loginForm" novalidate>
                 <label for="email">E-mail</label>
-                <input type="email" id="email" placeholder="email@domena.cz" required>
+                <input type="email" id="email" placeholder="email@domena.cz">
+                <span id="email-error" class="err-msg"></span>
 
                 <div class="pass-wrapper">
                     <label for="password">Heslo</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
+                    <input type="password" id="password" placeholder="••••••••">
+                    <span id="password-error" class="err-msg"></span>
                     <button type="button" id="togglePass"> &#128065; </button>
                 </div>
                 <div class="remember-box">

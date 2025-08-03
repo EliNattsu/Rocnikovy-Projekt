@@ -1,0 +1,34 @@
+:root {
+    --color-A: #000000;
+    --color-B: #000000;
+    --color-C: #000000;
+    --color-D: #000000;
+    --color-E: #000000;
+    --color-F: #000000;
+    --font-A: "Stoic-Regular";
+    --font-B: "Sunborn-SansOne";
+    --font-C: "Roasted Chicken";
+    --font-D: "Rosliya Quuen";
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+    scroll-behavior: smooth;
+}
+
+
+
+
+/* mail and pass error */
+.err-msg {
+    color: #e63946;
+    font-size: 0.9em;
+    margin-top: 4px;
+    display: block;
+}
+
+.chybne {
+    border-color: #e63946;
+    background: #ffe6e6;
+}

@@ -32,4 +32,33 @@ document.addEventListener('DOMContentLoaded', () => {
         forgotPasswordForm.style.display = 'none';
         checkEmailMessage.style.display = 'block';
     });
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+        let error = false;
+
+        // E-mail validace
+        const email = document.getElementById('email');
+        const emailErr = document.getElementById('email-error');
+        if (email.value.trim() === '') {
+            emailErr.textContent = 'Prosím zadejte e-mail!';
+            email.classList.add('chybne');
+            error = true;
+        } else {
+            emailErr.textContent = '';
+            email.classList.remove('chybne');
+        }
+
+        // Heslo validace
+        const password = document.getElementById('password');
+        const passErr = document.getElementById('password-error');
+        if (password.value.trim() === '') {
+            passErr.textContent = 'Prosím zadejte heslo!';
+            password.classList.add('chybne');
+            error = true;
+        } else {
+            passErr.textContent = '';
+            password.classList.remove('chybne');
+        }
+        if (error) e.preventDefault();
+    });
 });
