@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cat Paradise Hotel</title>
     <link rel="stylesheet" href="Styles/FAQStyles.css">
-    <link rel="javascript" href="JavaScript/FAQ.js">
-    <link rel="javascript" href="JavaScript/SideBar.js">
+    <script src="JavaScript/FAQ.js"></script>
+    <script src="JavaScript/SideBar.js"></script>
     <link rel="icon" href="Images/icon.png" type="image/png">
     <style>
         @font-face {
@@ -89,7 +89,99 @@
 </header>
 
 <main>
-
+    <section class="faq-section">
+        <h2>Často kladené otázky</h2>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq1" id="faq1-button">Jak se mohu zaregistrovat do systému?</button>
+            <div class="faq-answer" id="faq1" role="region" aria-labelledby="faq1-button" hidden>
+                <p>Registrace je možná pouze při vytváření rezervace. Pokud chceš ubytovat svou kočku, budeš při rezervaci vyzván(a) k vytvoření uživatelského účtu. Samostatná registrace není možná, aby bylo zajištěno, že uživatelé jsou aktivní zákazníci.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq2" id="faq2-button">Zapomněl(a) jsem heslo, jak ho mohu obnovit?</button>
+            <div class="faq-answer" id="faq2" role="region" aria-labelledby="faq2-button" hidden>
+                <p>Na přihlašovací stránce klikni na odkaz „Zapomenuté heslo?“ a zadej svůj e-mail. Na tento e-mail obdržíš instrukce pro obnovení hesla. Pokud e-mail v systému není, zobrazí se ti upozornění.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq3" id="faq3-button">Můžu si rezervovat více koček najednou?</button>
+            <div class="faq-answer" id="faq3" role="region" aria-labelledby="faq3-button" hidden>
+                <p>Ano, během rezervace můžeš přidat více koček a zadat pro každou speciální informace a požadavky.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq4" id="faq4-button">Jak probíhá předání kočky do hotelu?</button>
+            <div class="faq-answer" id="faq4" role="region" aria-labelledby="faq4-button" hidden>
+                <p>Pokud nebudeš u kočky ubytován(a), předáš ji našemu pečovateli na recepci v dohodnutý čas. V rezervačním systému můžeš zadat všechny důležité informace o kočce. Personál zajistí individuální péči dle těchto pokynů.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq5" id="faq5-button">Je možné sledovat, jak se má moje kočka během pobytu?</button>
+            <div class="faq-answer" id="faq5" role="region" aria-labelledby="faq5-button" hidden>
+                <p>Ano, pro vybrané pokoje nabízíme online video přenos ze zařízení v pokoji, abys mohl(a) na svou kočku kdykoliv nahlédnout.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq6" id="faq6-button">Co mám dělat, pokud potřebuji změnit nebo zrušit rezervaci?</button>
+            <div class="faq-answer" id="faq6" role="region" aria-labelledby="faq6-button" hidden>
+                <p>Přihlas se do svého účtu v sekci „Moje rezervace“, kde můžeš upravit nebo zrušit svou rezervaci dle podmínek hotelu.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq7" id="faq7-button">Jaké jsou podmínky zrušení rezervace?</button>
+            <div class="faq-answer" id="faq7" role="region" aria-labelledby="faq7-button" hidden>
+                <p>Podmínky zrušení najdeš v části „Obchodní podmínky“ na našem webu. Obecně doporučujeme zrušit rezervaci co nejdříve, aby hotel mohl kapacitu nabídnout dalším zákazníkům.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq8" id="faq8-button">Nabízíte také rezervaci ubytování pro majitele, kteří cestují s kočkou?</button>
+            <div class="faq-answer" id="faq8" role="region" aria-labelledby="faq8-button" hidden>
+                <p>Ano, nabízíme možnost rezervace pokojů, kde může být ubytován jak majitel, tak jeho kočka. Tuto možnost zvolíš při vytváření rezervace.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq9" id="faq9-button">Jak je zajištěna bezpečnost a ochrana osobních údajů?</button>
+            <div class="faq-answer" id="faq9" role="region" aria-labelledby="faq9-button" hidden>
+                <p>Respektujeme ochranu osobních dat v souladu s GDPR. Všechny osobní i údaje o kočkách jsou šifrovány a uchovávány bezpečně.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq10" id="faq10-button">Jaké jsou možnosti kontaktu s hotelem?</button>
+            <div class="faq-answer" id="faq10" role="region" aria-labelledby="faq10-button" hidden>
+                <p>Můžeš nás kontaktovat přes kontaktní formulář na stránce „Kontakt“, telefonicky na +420 123 456 789, nebo e-mailem na info@catparadise.cz.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq11" id="faq11-button">Jak funguje platba za pobyt?</button>
+            <div class="faq-answer" id="faq11" role="region" aria-labelledby="faq11-button" hidden>
+                <p>Platbu lze provést online kartou během rezervace nebo na recepci hotovostí či kartou při příjezdu.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq12" id="faq12-button">Mohu zrušit rezervaci zdarma?</button>
+            <div class="faq-answer" id="faq12" role="region" aria-labelledby="faq12-button" hidden>
+                <p>Rezervaci lze zrušit zdarma do 48 hodin před plánovaným příjezdem. Podrobnosti najdeš v obchodních podmínkách.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq13" id="faq13-button">Jaké jsou podmínky pro ubytování více koček?</button>
+            <div class="faq-answer" id="faq13" role="region" aria-labelledby="faq13-button" hidden>
+                <p>Pro ubytování více koček platí zvláštní podmínky a cenové zvýhodnění. Informace jsou uvedeny během rezervace.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq14" id="faq14-button">Co když moje kočka potřebuje pravidelné léky?</button>
+            <div class="faq-answer" id="faq14" role="region" aria-labelledby="faq14-button" hidden>
+                <p>Personál hotelu zajistí pravidelné podání léků podle pokynů majitele, které zadáš v rezervaci nebo předáš na recepci.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq15" id="faq15-button">Je možné hotel navštívit před rezervací?</button>
+            <div class="faq-answer" id="faq15" role="region" aria-labelledby="faq15-button" hidden>
+                <p>Ano, nabízíme možnost prohlídky hotelu po předchozí domluvě, aby ses mohla přesvědčit o kvalitě péče.</p>
+            </div>
+        </div>
+    </section>
 </main>
 
 <footer class="footer">
@@ -129,6 +221,7 @@
     </div>
     <div class="footer-bottom">
         <p>&copy; 2025 CatParadise Hotel • Všechna práva vyhrazena</p>
+        <p class="love">Made with love &#128571;</p>
     </div>
 </footer>
 </body>
