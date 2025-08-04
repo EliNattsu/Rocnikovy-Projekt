@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cat Paradise Hotel</title>
     <link rel="stylesheet" href="Styles/AboutHotelStyles.css">
-    <link rel="javascript" href="JavaScript/AboutHotel.js">
-    <link rel="javascript" href="JavaScript/SideBar.js">
+    <script src="JavaScript/AboutHotel.js"></script>
+    <script src="JavaScript/SideBar.js"></script>
     <link rel="icon" href="Images/icon.png" type="image/png">
     <style>
         @font-face {
@@ -89,7 +89,206 @@
 </header>
 
 <main>
+    <section class="about-hero">
+        <h1>O Hotelu</h1>
+    </section>
 
+    <div class="about-main">
+        <div class="about-offerings" id="main-menu">
+            <article class="about-card" id="card-news">
+                <h2 class="about-title" data-target="details-news">Aktuality</h2>
+                <p>Novinky a události z našeho hotelu.</p>
+            </article>
+
+            <article class="about-card" id="card-history">
+                <h2 class="about-title" data-target="details-history">Historie</h2>
+                <p>Jak vznikl hotel a jeho příběh.</p>
+            </article>
+
+            <article class="about-card" id="card-services">
+                <h2 class="about-title" data-target="details-services">Naše služby</h2>
+                <p>Co nabízíme našim hostům.</p>
+            </article>
+
+            <article class="about-card" id="card-preparing">
+                <h2 class="about-title" data-target="details-preparing">Připravujeme</h2>
+                <p>Plány a novinky v hotelu.</p>
+            </article>
+        </div>
+
+        <div class="about-details" style="display:none;">
+            <button id="back-btn">← Zpět</button>
+
+            <!-- Aktuality -->
+            <div id="details-news" class="details-section" style="display:none;">
+                <h2>Aktuality</h2>
+                <div class="accordion-item">
+                    <button class="accordion-button" aria-expanded="false" aria-controls="content-1" id="accordionBtn-1">Nové relaxační vybavení pro kočky (červenec 2025)</button>
+                    <div class="accordion-content" id="content-1" aria-labelledby="accordionBtn-1" hidden>
+                        <p>Do všech pokojů jsme instalovali nové přírodní škrabadla z certifikovaného dřeva. Tento krok byl motivován snahou poskytnout kočkám nejen místo na hraní,
+                            ale i přirozený povrch, který podporuje jejich zdraví a zabraňuje poškozování ostatního vybavení. Současně jsme rozšířili nabídku aromaterapie o přírodní
+                            esenciální oleje vybrané speciálně pro podporu duševní pohody koček. Výsledkem je klidnější a příjemnější prostředí, které kočkám pomáhá při adaptaci na
+                            pobyt mimo domov.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button" aria-expanded="false" aria-controls="content-2" id="accordionBtn-2">Úspěšná adopční neděle (květen 2025)</button>
+                    <div class="accordion-content" id="content-2" aria-labelledby="accordionBtn-2" hidden>
+                        <p>Společně s místním útulkem Kočičí přátelé jsme uspořádali charitativní den, během něhož měli návštěvníci možnost se seznámit s opuštěnými kočkami,
+                            vybrat si nového společníka a podpořit dobrou věc. Akce byla nejen úspěšná po stránce adopcí, ale také posílila povědomí o důležitosti péče o kočky a
+                            zvyšování kvality života všech mazlíčků. Náš hotel poskytl pro nově adoptované kočky zvýhodněné ubytování, které výrazně usnadňuje přechod do nového domova.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button" aria-expanded="false" aria-controls="content-3" id="accordionBtn-3">Zahájení letního provozu (duben 2025)</button>
+                    <div class="accordion-content" id="content-3" aria-labelledby="accordionBtn-3" hidden>
+                        <p>Příprava na letní sezónu zahrnovala rozšíření kapacity hotelu a přidání nových klimatizovaných pokojů. Zavedli jsme inovativní světelný systém,
+                            který napodobuje přirozený denní rytmus, což pomáhá kočkám lépe se orientovat v čase a snižuje stres spojený se změnou prostředí.
+                            Letní program navíc obsahuje rozšířené aktivity a hry, které odpovídají potřebám aktivních i klidnějších koček.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button" aria-expanded="false" aria-controls="content-4" id="accordionBtn-4">Projekt „Kočka v ráji“ získal ocenění (leden 2025)</button>
+                    <div class="accordion-content" id="content-4" aria-labelledby="accordionBtn-4" hidden>
+                        <p>Naše práce byla oceněna na národní úrovni prestižní cenou za inovativní přístup k péči o domácí mazlíčky. Porota vyzdvihla individuální péči přizpůsobenou
+                            specifickým potřebám každé kočky, implementaci moderních technologií – včetně relaxační hudby a video přenosů – a vysokou míru spokojenosti klientů.
+                            Toto ocenění je pro nás potvrzením směřování hotelu a motivací pro další zdokonalování služeb.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button" aria-expanded="false" aria-controls="content-6" id="accordionBtn-6">Vylepšení bezpečnostních systémů (prosinec 2024)</button>
+                    <div class="accordion-content" id="content-6" aria-labelledby="accordionBtn-6" hidden>
+                        <p>Pro zvýšení bezpečnosti našeho hotelu jsme nainstalovali nové kamerové systémy a moderní zabezpečovací technologie. Díky nim máme nepřetržitý dohled nad
+                            všemi prostorami, což nám umožňuje okamžitě reagovat na jakoukoli neobvyklou situaci a zajistit maximální bezpečí všech kočičích hostů.
+                            Vaše kočky tak mohou klidně odpočívat v bezpečném prostředí s důvěrou, že jsou v dobrých rukou.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button" aria-expanded="false" aria-controls="content-8" id="accordionBtn-8">Rozšíření personálního týmu (říjen 2024)</button>
+                    <div class="accordion-content" id="content-8" aria-labelledby="accordionBtn-8" hidden>
+                        <p>Abychom stále zvyšovali kvalitu našich služeb, rozšířili jsme náš tým o nové pečovatele s dlouholetou praxí a veterinární specialisty,
+                            kteří pravidelně monitorují zdravotní stav našich hostů. Tým je tak nyní schopný lépe reagovat na individuální potřeby koček a zajistit jim vysoce
+                            profesionální péči včetně prevence a rychlé pomoci v případě potřeby.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button" aria-expanded="false" aria-controls="content-9" id="accordionBtn-9">Nové služby pro zákazníky (říjen 2024)</button>
+                    <div class="accordion-content" id="content-9" aria-labelledby="accordionBtn-9" hidden>
+                        <p>Neustále rozšiřujeme paletu služeb, které nabízíme. Nově nabízíme speciální dietní plány pro kočky s alergiemi či specifickými potřebami,
+                            individuální denní program přizpůsobený potřebám každého zvířete a možnost vedení personalizovaného deníku s fotografiemi a poznámkami z pobytu.
+                            Naším cílem je, aby od nás odcházely kočky nejen spokojené, ale i zdravé a odpočaté.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button" aria-expanded="false" aria-controls="content-10" id="accordionBtn-10">Ekologický provoz (září 2024)</button>
+                    <div class="accordion-content" id="content-10" aria-labelledby="accordionBtn-10" hidden>
+                        <p>S velkou odpovědností ke společnosti a přírodě jsme se pustili do ekologizace provozu hotelu. Používáme pouze ekologicky šetrné čistící prostředky,
+                            dbáme na recyklaci a snažíme se minimalizovat odpad. Tento krok je součástí našeho dlouhodobého závazku poskytovat kvalitní služby šetrné k životnímu prostředí
+                            a zároveň dávat příklad v oblasti udržitelnosti.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historie -->
+            <div id="details-history" class="details-section" style="display:none;">
+                <h2>Historie</h2>
+                <p>
+                    Příběh našeho hotelu začíná před více než deseti lety, kdy jsme jako opravdoví milovníci koček hledali místo, kam bychom svěřili naši vlastní kočku tak, abychom
+                    jí dopřáli stejně láskyplné zázemí jako doma. Po měsících hledání a inspirace v zahraničí jsme se rozhodli pronajmout starý dům a upravit ho podle potřeb koček –
+                    začali jsme od nuly s několika pelíšky, hračkami a snem, že vytvoříme místo, kde má každá kočka své jméno a každý majitel jistotu, že je o jeho mazlíčka postaráno s
+                    péčí a respektem.
+                </p>
+                <p>
+                    První klienti k nám často vozili kočky poprvé a byli nervózní stejně jako jejich svěřenci. Postupně jsme všechny přesvědčili o kvalitách dobře připraveného prostředí,
+                    individuálním přístupu a pečlivě volené relaxační hudbě. Přicházely i výzvy: nesměly být pachy, hluk, ani stres. Přibyli první zaměstnanci – opravdoví kočičí nadšenci –
+                    a začali jsme navazovat spolupráci s veterináři pro specializované případy.
+                </p>
+                <p>
+                    S přibývajícími zkušenostmi jsme zavedli aromaterapii, puzzle hry a začali vést ke každému pobytu i papírový kočičí deník jako suvenýr pro majitele.
+                    Byli jsme první hotel v regionu, kde kočka nebyla „jen zvíře na hlídání“, ale host. V dalším kroku jsme investovali do modernizace pokojů a otevřeli
+                    první společné relaxační zóny.
+                </p>
+                <p>
+                    Dnes patří CatParadise k nejlépe hodnoceným kočičím hotelům v republice, máme tým pečovatelů, moderní pokoje a stále nové nápady.
+                    Věříme, že skutečný domov je tam, kde je srdce a pohoda – a přesně tu chceme tvořit pro každou kočku, která k nám přijde.
+                </p>
+                <blockquote class="founder-quote">
+                    „Cílem projektu je prostřednictvím moderní webové aplikace zjednodušit majitelům koček hledání kvalitní péče a nabídnout jim služby, které na trhu chybí.“<br>
+                    <span class="founder-name"> - Eliška Hrdá
+                        <span class="founder-title">zakladatelka CatParadise Hotel</span>
+                    </span>
+                </blockquote>
+            </div>
+
+            <!-- Služby -->
+            <div id="details-services" class="details-section" style="display:none;">
+                <h2>Naše služby</h2>
+                <ul>
+                    <li>
+                        <h3>Profesionální péče o kočky</h3>
+                        <p>Naši pečovatelé se každé kočce věnují individuálně, znají její povahu i speciální potřeby. Sledují zdravotní stav, hrají si, mazlí,
+                            podle přání majitele vše zaznamenají do deníku.</p>
+                    </li>
+                    <li>
+                        <h3>Moderní, útulné pokoje s výhledem</h3>
+                        <p>Každý pokoj má kvalitní pelíšek, škrabadlo, hračky a bezpečný výhled na zahradu. Interiér působí klidným a čistým dojmem, což pomáhá kočkám rychle se zabydlet.</p>
+                    </li>
+                    <li>
+                        <h3>Individuální krmný a herní režim</h3>
+                        <p>Krmení (čas, druh stravy) přizpůsobujeme na přání majitele. Hráčky, pomůcky, intervaly i úrovně stimulace volíme na míru – každá kočka má jiný temperament.</p>
+                    </li>
+                    <li>
+                        <h3>Uklidňující hudba a aromaterapie pro kočky</h3>
+                        <p>V každém pokoji hraje speciálně vybraná hudba a používáme jen přírodní aroma esence pro zklidnění a pocit domova.</p>
+                    </li>
+                    <li>
+                        <h3>Papírový kočičí deník na památku</h3>
+                        <p>Po odjezdu v deníku najdete fotky, příběh a vzkazy o pobytu vaší kočky. Je to krásná a osobní vzpomínka na čas v CatParadise.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Připravujeme -->
+            <div id="details-preparing" class="details-section" style="display:none;">
+                <h2>Připravujeme</h2>
+                <ul>
+                    <li>
+                        <h3>Kočičí kavárna pro hosty s hlídáním</h3>
+                        <p>Stavíme útulnou kavárnu přímo u recepce. Majitelé budou moci posedět, pracovat, nebo si jen odpočinout, když je kočička v péči personálu.
+                            Hlídací místnost bude propojena s relax playroomem, aby měly kočky i majitelé maximální pohodlí.</p>
+                    </li>
+                    <li>
+                        <h3>VIP Kočka – rozšířený program</h3>
+                        <p>Plánujeme exkluzivní apartmány s možností privátní zahrádky, osobním pečovatelem, wellness a prémiovým krmením včetně pravidelných reportů a video zpráv o
+                            průběhu pobytu.</p>
+                    </li>
+                    <li>
+                        <h3>Online video přenos z pokoje</h3>
+                        <p>Vybrané pokoje budou vybaveny kamerami pro soukromý, zabezpečený přístup majitele. Vše bude jednoduše ovladatelné z mobilní aplikace.</p>
+                    </li>
+                    <li>
+                        <h3>Tematické kočičí víkendy</h3>
+                        <p>Chystáme festivaly a dny rozmazlování – akce zaměřené na poznávání nových kamarádů, hrací workshopy, společné aktivity pro kočky i lidi a přednášky od odborníků.</p>
+                    </li>
+                    <li>
+                        <h3>Tréninkové a socializační kurzy</h3>
+                        <p>Rozvíjíme programy pro plaché, temperamentní i seniory pod vedením zkušených behavioristů, které pomohou kočkám lépe se adaptovat – včetně kurzů hry,
+                            práce s pachy a zacvičování na nové prostředí.</p>
+                    </li>
+                    <li>
+                        <h3>Mobilní aplikace pro správu rezervací</h3>
+                        <p>Usnadní správu rezervací, kontrolu průběhu pobytu, připomínky i rychlý kontakt s personálem. Plánujeme notifikace o všech klíčových událostech během pobytu
+                            vaší kočky.</p>
+                    </li>
+                    <li>
+                        <h3>Kočičí playroom s interaktivními hračkami</h3>
+                        <p>Chystáme jedno z největších kočičích bludišť v regionu – playroom s tunely, prolézačkami, hlavolamy a chill-out zónou. Součástí budou moderované herní
+                            bloky a bezpečný pohyb pod dohledem zkušeného personálu.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </main>
 
 <footer class="footer">
@@ -129,6 +328,7 @@
     </div>
     <div class="footer-bottom">
         <p>&copy; 2025 CatParadise Hotel • Všechna práva vyhrazena</p>
+        <p class="love">Made with love &#128571;</p>
     </div>
 </footer>
 </body>
