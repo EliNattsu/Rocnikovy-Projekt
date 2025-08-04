@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cat Paradise Hotel</title>
     <link rel="stylesheet" href="Styles/AccountStyles.css">
-    <link rel="javascript" href="JavaScript/Account.js">
-    <link rel="javascript" href="JavaScript/SideBar.js">
+    <script src="JavaScript/Account.js"></script>
+    <script src="JavaScript/SideBar.js"></script>
     <link rel="icon" href="Images/icon.png" type="image/png">
     <style>
         @font-face {
@@ -89,7 +89,114 @@
 </header>
 
 <main>
+    <div class="account-container">
+        <h2>Podrobnosti o mně a kočkách</h2>
+        <!-- Záložky -->
+        <nav class="account-tabs">
+            <button class="tab-btn active" data-tab="me">Já, majitel</button>
+            <button class="tab-btn" data-tab="cats">Moje kočky</button>
+            <button class="tab-btn" data-tab="reservations">Moje rezervace</button>
+            <button class="tab-btn" data-tab="settings">Nastavení a notifikace</button>
+            <button class="logout-btn">Odhlásit se</button>
+        </nav>
 
+        <div class="tabs-content">
+
+            <!-- Já, majitel -->
+            <section class="tab-pane" id="tab-me">
+                <h2>Můj profil</h2>
+                <div class="profile-info">
+                    <label>Jméno: <span>Jan</span></label><br>
+                    <label>Příjmení: <span>Novák</span></label><br>
+                    <label>E-mail: <span>jan.novak@email.cz</span></label><br>
+                    <label>Telefon: <span>+420 987 654 321</span></label>
+                </div>
+                <button class="owner-edit-btn">Upravit</button>
+            </section>
+
+            <!-- Moje kočky -->
+            <section class="tab-pane" id="tab-cats" style="display:none;">
+                <h2>Moje kočky</h2>
+                <button class="add-cat-btn">+ Přidat kočku</button>
+                <div class="cat-list">
+                    <div class="cat-card">
+                        <div>
+                            <strong>Jméno:</strong> Míca &nbsp;|&nbsp; <strong>Věk:</strong> 4 roky
+                            <button class="cat-edit-btn">Upravit</button>
+                            <button class="cat-details-btn">Detaily</button>
+                        </div>
+                        <div class="cat-details" style="display:none;">
+                            <strong>Speciální potřeby:</strong> bezlepkové krmivo<br>
+                            <em>Kočka je velmi přátelská k ostatním, doporučené časté mazlení.</em>
+                        </div>
+                    </div>
+                    <div class="cat-card">
+                        <div>
+                            <strong>Jméno:</strong> Maxík &nbsp;|&nbsp; <strong>Věk:</strong> 2 roky
+                            <button class="cat-edit-btn">Upravit</button>
+                            <button class="cat-details-btn">Detaily</button>
+                        </div>
+                        <div class="cat-details" style="display:none;">
+                            <strong>Speciální potřeby:</strong> alergie na kuře<br>
+                            <em>Mladý samec, doporučeno bez kontaktního krmení.</em>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Moje rezervace -->
+            <section class="tab-pane" id="tab-reservations" style="display:none;">
+                <h2>Moje rezervace</h2>
+                <div class="reservations-list">
+                    <div class="reservation-card">
+                        <div>
+                            <strong>Termín:</strong> 10.8.2025 – 17.8.2025 &nbsp;|&nbsp; <strong>Pokoj:</strong> Číslo 201 &nbsp;|&nbsp; <strong>Stav:</strong> Potvrzeno
+                            <button class="res-edit-btn">Upravit</button>
+                            <button class="res-cancel-btn">Zrušit</button>
+                            <button class="res-details-btn">Detaily</button>
+                        </div>
+                        <div class="res-details" style="display:none;">
+                            <strong>Detaily rezervace:</strong> Pokoji Číslo 201, Kočka: Míca, Poznámka: přivézt vlastní deku.
+                        </div>
+                    </div>
+                    <div class="reservation-card">
+                        <div>
+                            <strong>Termín:</strong> 1.7.2025 – 10.7.2025 &nbsp;|&nbsp; <strong>Pokoj:</strong> Číslo 105 &nbsp;|&nbsp; <strong>Stav:</strong> Dokončeno
+                            <button class="res-edit-btn">Upravit</button>
+                            <button class="res-cancel-btn" disabled>Zrušit</button>
+                            <button class="res-details-btn">Detaily</button>
+                        </div>
+                        <div class="res-details" style="display:none;">
+                            <strong>Detaily rezervace:</strong> Pokoj Číslo 105, Kočka: Maxík, Poznámka: žádná.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nastavení a notifikace -->
+            <section class="tab-pane" id="tab-settings" style="display:none;">
+                <h2>Nastavení a notifikace</h2>
+                <form>
+                    <fieldset>
+                        <legend>Vyberte upozornění:</legend>
+                        <label><input type="checkbox" checked> E-mailem</label><br>
+                        <label><input type="checkbox"> SMS</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Změna hesla</legend>
+                        <label>Nové heslo<br>
+                            <input type="password" placeholder="Zadejte nové heslo">
+                        </label><br>
+                        <label>Potvrzení hesla<br>
+                            <input type="password" placeholder="Zadejte znovu heslo">
+                        </label><br>
+                        <button type="submit" class="change-pw-btn">Změnit heslo</button>
+                    </fieldset>
+                </form>
+            </section>
+
+        </div>
+    </div>
 </main>
 
 <footer class="footer">
@@ -129,6 +236,7 @@
     </div>
     <div class="footer-bottom">
         <p>&copy; 2025 CatParadise Hotel • Všechna práva vyhrazena</p>
+        <p class="love">Made with love &#128571;</p>
     </div>
 </footer>
 </body>
