@@ -1,20 +1,16 @@
-function showSidebar(){
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.style.display = 'flex';
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const hamButton = document.getElementById('ham-button');
+    const mobileMenu = document.getElementById('menu-mobile');
 
-function hideSidebar(){
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.style.display = 'none';
-}
-
-function setupMenuListeners(){
-    const sidebar = document.querySelector('.sidebar');
-    const menuItems = sidebar.querySelectorAll('a');
-
-    menuItems.forEach(item => {
-        item.addEventListener('click', hideSidebar);
+    hamButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        mobileMenu.classList.toggle('active');
+        hamButton.classList.toggle('open');
+        // Změna aria-label pro přístupnost
+        if(hamButton.classList.contains('open')){
+            hamButton.setAttribute('aria-label', 'Zavřít menu');
+        } else {
+            hamButton.setAttribute('aria-label', 'Otevřít menu');
+        }
     });
-}
-document.addEventListener('DOMContentLoaded', setupMenuListeners);
-
+});

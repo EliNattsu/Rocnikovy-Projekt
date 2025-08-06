@@ -1,0 +1,247 @@
+:root {
+    --color-A: #F28B30;
+    --color-B: #E63946;
+    --color-C: #C66018;
+    --color-D: #EBC477;
+    --color-E: #F2c063;
+    --color-F: #D98944;
+    --font-A: "Rosliya Quuen";
+    --font-B: "Poppins-Light";
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 50px;
+    padding: 0 70px 0 70px;
+    background: rgba(252, 242, 232);
+    border-bottom: 1px solid #e3ddd4;
+}
+
+.topbar-cont{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 50px;
+    padding: 0 70px 0 70px;
+}
+
+.topbar.contact {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.icon-inline svg {
+    height: 1em;
+    width: 1em;
+    vertical-align: -0.35em;
+    display: inline-block;
+    fill: rgba(245, 142, 49, 0.3);
+}
+
+.tel-cislo, .email{
+    font-family: var(--font-B), serif;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+.linka { opacity: 0.4;}
+
+.right-half {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.social {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+}
+.social.icon-inline, .icon-inline svg {
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 1.3em;
+    width: 1.3em;
+}
+
+.reservation-wrap{
+    display: flex;
+    align-items: center;
+}
+.reservation-btn{
+    background: rgba(245, 142, 49, 0.86);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 15px;
+    font-family: var(--font-B), serif;
+    font-size: 1.2em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.reservation-btn:hover {
+    background: rgb(245, 142, 49);
+}
+
+@media screen and (max-width: 900px) {
+    .topbar-cont{
+        margin: 0;
+        padding: 0;
+        justify-content: space-around;
+    }
+    .topbar {
+        margin: 0;
+        padding: 0 20px 0 20px;
+    }
+
+}
+@media screen and (max-width: 680px) {
+    .social {
+        display: none;
+    }
+    .topbar.contact {
+        margin-left: 20px;
+        margin-right: 0;
+    }
+    .topbar-cont{
+        margin: 0;
+        padding: 0;
+        justify-content: space-between;
+    }
+    .topbar {
+        padding: 0 15px 0 15px;
+    }
+}
+/*__________________________________________________________________________*/
+.nav-cont{
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 60px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 120px;
+    margin-left: 125px;
+}
+nav.navbar {
+    display: flex;
+    background: rgba(252, 242, 232);
+    border-bottom: 1px solid #e3ddd4;
+    width: 100vw;
+    z-index: 100;
+}
+
+div.logo {
+    display: flex;
+    max-width: 100px;
+}
+.logo img {
+    position: relative;
+    margin-top: 15px;
+    align-self: center;
+    z-index: 100;
+}
+
+nav.navbar ul.menu {
+    display: flex;
+    margin-left: auto;
+    list-style: none;
+    padding: 0;
+}
+nav.navbar ul.menu li {
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+nav.navbar ul.menu li a{
+    text-decoration: none;
+    color: #000;
+    font-family: var(--font-B), serif;
+    font-size: 1.2em;
+}
+nav.navbar ul.menu li a:hover {
+    color: rgb(245, 142, 49);
+}
+
+nav.navbar a#ham-button {
+    margin: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+    justify-content: right;
+    border-radius: 5px;
+    display: none;
+}
+a#ham-button svg{
+    width: 4em;
+
+}
+/* mobil menu*/
+nav.navbar ul.menu-mobile{
+    position: fixed;
+    top: 47px;
+    left: 0;
+    right: 0;
+    background: rgba(252, 242, 232);
+    list-style: none;
+    text-align: center;
+    width: 100vw;
+    margin: 4rem 0 0 0;
+    padding: 0;
+    display: none;
+    flex-direction: column;
+}
+nav.navbar ul.menu-mobile.active {
+    display: flex;
+}
+
+nav.navbar ul.menu-mobile li {
+    display: block;
+    width: 100vw;
+    background: rgb(250, 240, 230);
+}
+
+nav.navbar ul.menu-mobile li a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    font-family: var(--font-B), serif;
+    margin-top: 7px;
+    margin-bottom: 3px;
+    font-size: 1.3em;
+    text-align: center;
+}
+nav.navbar ul.menu-mobile li a:hover {
+    color: rgb(245, 142, 49);
+}
+
+@media screen and (max-width: 925px) {
+    .nav-cont {
+        margin: auto;
+        justify-content: space-between;
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    nav.navbar a#ham-button {
+        display: inline-block;
+    }
+    nav.navbar ul.menu{
+        display: none;
+    }
+    .nav-cont {
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: space-between;
+    }
+}
