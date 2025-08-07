@@ -1,0 +1,230 @@
+main{
+    padding-top: 100px;
+    font-family: var(--font-B), serif;
+}
+
+.about-hero {
+    background: url(/Images/abouthotel/abouthotelpage.jpg) no-repeat center center/cover;;
+    opacity: 0.8;
+    color: #ffffff;
+    text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.89);
+    text-align: center;
+    padding: 48px 20px;
+    font-size: 2.8em;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    box-shadow: 0 5px 12px rgb(237 151 69 / 0.6);
+    border-radius: 0 0 12px 12px;
+}
+.about-main{
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.about-offerings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 30px;
+    margin-bottom: 32px;
+}
+
+.about-card {
+    background: #f4f1ea;
+    border-radius: 10px;
+    box-shadow: 0 3px 11px rgba(237, 151, 69, 0.25);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    user-select: none;
+    position: relative;
+}
+
+.about-card:focus {
+    outline: 3px solid #ed9745;
+    outline-offset: 2px;
+}
+
+.card-image {
+    width: 100%;
+    padding-top: 140px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    transition: filter 0.3s ease;
+}
+
+.about-title {
+    margin: 14px 12px 6px 12px;
+    color: #433722;
+    font-weight: 700;
+    font-size: 1.5em;
+}
+
+.card-description {
+    margin: 0 15px 18px 15px;
+    color: #6f5d24;
+    font-size: 1.05em;
+    display: none;
+}
+
+.about-card:hover .card-image,
+.about-card:focus .card-image {
+    filter: brightness(0.5);
+}
+
+.about-card:hover .card-description,
+.about-card:focus .card-description {
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    background: rgb(250, 240, 230);
+    color: #000000;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1.1em;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Tlačítko zpět */
+#back-btn {
+    background-color: transparent;
+    border: none;
+    color: #ed9745;
+    font-weight: 700;
+    font-size: 1.12em;
+    cursor: pointer;
+    margin-bottom: 24px;
+    padding: 6px 12px 8px 0;
+    user-select: none;
+    transition: color 0.18s;
+}
+#back-btn:hover, #back-btn:focus {
+    color: #d57428;
+    outline: none;
+}
+
+/* Detailní sekce */
+.details-section {
+    display: none;
+}
+.details-section.active {
+    display: block;
+}
+
+/* Podnadpisy v detailu */
+.details-section h2 {
+    margin-top: 0;
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #6b5029;
+}
+
+/* Text v detailních odstavcích */
+.details-section p,
+.details-section li {
+    font-size: 1.05em;
+    margin-bottom: 18px;
+    color: #4c3c18;
+    font-weight:500;
+}
+
+.details-section ul {
+    padding-left: 1.4em;
+}
+
+/* Blok citátu v historii */
+.founder-quote {
+    font-style: italic;
+    font-weight: 600;
+    border-left: 5px solid #ed9745;
+    padding-left: 14px;
+    margin-top: 24px;
+    user-select: none;
+    color: #8d6f32;
+}
+.founder-name {
+    font-weight: 500;
+    font-family: var(--font-A), serif;
+    font-size: 2.5em;
+    display: block;
+    margin-top: 8px;
+}
+.founder-title {
+    font-family: var(--font-B), serif;
+
+    font-weight: 500;
+    font-size: 0.4em !important;
+    color: #b09244;
+}
+
+/* ---------- Akordeon v Aktualitách ---------- */
+.accordion-item {
+    margin-bottom: 12px;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 2px solid #ed9745;
+    background-color: #fef9f2;
+}
+.accordion-button {
+    width: 100%;
+    background: #ed9745;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1.07em;
+    text-align: left;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+.accordion-button:hover,
+.accordion-button[aria-expanded="true"] {
+    background-color: #e47331;
+    outline: none;
+}
+.accordion-button::after {
+    content: '+';
+    font-weight: 900;
+    font-size: 1.4em;
+    user-select: none;
+    transition: transform 0.3s ease;
+}
+.accordion-button[aria-expanded="true"]::after {
+    content: '−';
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    padding: 14px 18px 16px 18px;
+    background: #fff8ec;
+    border-top: 1px solid #ed9745;
+    font-weight: 500;
+    color: #4c3c18;
+    font-size: 1em;
+    line-height: 1.45;
+    user-select: text;
+}
+
+@media (max-width: 770px) {
+    .about-offerings {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 18px 20px;
+        margin-bottom: 22px;
+    }
+}
