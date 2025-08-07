@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         loginForm.style.display = 'none';
         forgotPasswordForm.style.display = 'block';
+        document.querySelector('.welcome-text').style.display = 'none';
     });
 
     // Odeslání obnovy hesla

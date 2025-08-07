@@ -132,9 +132,8 @@
 
 <main>
     <section class="login-container">
-        <!-- Levá strana: Login form -->
         <div class="login-panel">
-            <h2>Vítejte zpět!</h2>
+            <h2 class="welcome-text">Vítejte zpět!</h2>
             <form id="loginForm" novalidate>
                 <label for="email">E-mail</label>
                 <input type="email" id="email" placeholder="email@domena.cz">
@@ -144,7 +143,7 @@
                 <input type="password" id="password" placeholder="••••••••">
                 <span id="password-error" class="err-msg"></span>
 
-                <div id="row-options">
+                <div class="options-row">
                     <label class="show-pass">
                         <input type="checkbox" id="togglePassChk">
                         Zobrazit heslo
@@ -153,23 +152,23 @@
                         <input type="checkbox" id="remember">
                         Zůstat přihlášen
                     </label>
-                <a href="#" class="forgot">Zapomenuté heslo?</a>
-                <button type="submit" class="login-btn">Přihlásit se</button>
+                    <a href="#" class="forgot">Zapomenuté heslo?</a>
                 </div>
+                <button type="submit" class="login-btn">Přihlásit se</button>
             </form>
+
+            <!-- Skrytý obnovovací formulář -->
+            <div id="forgotPasswordForm" style="display:none;">
+                <label for="resetEmail">Zadejte svůj e-mail</label>
+                <input type="email" id="resetEmail" placeholder="email@domena.cz" required>
+                <button type="button" id="sendResetRequest">Odeslat</button>
+            </div>
+            <!-- Skrytá úspěšná zpráva -->
+            <div id="checkEmailMessage" style="display:none;">
+                Prosím, zkontrolujte svůj e-mail pro další instrukce.
+            </div>
         </div>
     </section>
-
-    <!-- Skrytý obnovovací formulář -->
-    <div id="forgotPasswordForm" style="display:none;">
-        <label for="resetEmail">Zadejte svůj e-mail</label>
-        <input type="email" id="resetEmail" placeholder="email@domena.cz" required>
-        <button type="button" id="sendResetRequest">Odeslat</button>
-    </div>
-    <!-- Skrytá úspěšná zpráva -->
-    <div id="checkEmailMessage" style="display:none;">
-        Prosím, zkontrolujte svůj e-mail pro další instrukce.
-    </div>
 </main>
 
 <footer class="footer">
