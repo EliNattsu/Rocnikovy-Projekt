@@ -1,0 +1,199 @@
+main{
+    padding-top:100px;
+    font-family: var(--font-B), serif;
+}
+html{
+    scroll-padding-top: 129px;
+}
+.rooms-hero {
+    background: url('/Images/pokojpage/pokojepage.jpg') no-repeat center center/cover;
+    padding: 120px 20px 60px 20px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+}
+
+.rooms-hero .hero-text h1 {
+    font-size: 3.2em;
+    margin: 0 0 35px 0;
+    font-weight: 700;
+    text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+    background-color: #ed9745;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 14px 38px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    transition: background-color 0.25s ease;
+    box-shadow: 0 4px 12px rgb(237 151 69 / 0.5);
+    cursor: pointer;
+    user-select: none;
+}
+
+.hero-buttons .btn:hover,
+.hero-buttons .btn:focus {
+    background-color: #d77e28;
+    outline: none;
+}
+/*__________________________________________________________________________*/
+.rooms-section {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #4a3c16;
+}
+
+.rooms-section h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 28px;
+    text-align: center;
+    color: #433722;
+}
+
+.room-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.room-card {
+    background: #f4f1ea;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(237,151,69,0.3);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+    user-select: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.room-card:hover {
+    box-shadow: 0 6px 22px rgba(237,151,69,0.6);
+}
+
+/* Obrázek nahoře jako background */
+.room-image {
+    width: 100%;
+    max-width: 600px;
+    height: 280px;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center center;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 20px rgb(237 151 69 / 0.25);
+    transition: filter 0.3s ease;
+}
+/* Obrázky - příklad, nahraď cestami k obrázkům */
+.room-img-1 {
+    background-image: url('/Images/pokojpage/pouzekocka1.jpg');
+}
+.room-img-2 {
+    background-image: url('/Images/pokojpage/pouzekocka2.jpg');
+}
+.room-img-3 {
+    background-image: url('/Images/pokojpage/pouzekocka3.jpg');
+}
+.room-owner-img-1 {
+    background-image: url('/Images/pokojpage/majitel a kocka1.jpg');
+}
+.room-owner-img-2 {
+    background-image: url('/Images/pokojpage/majitel a kocka2.jpg');
+}
+.room-owner-img-3 {
+    background-image: url('/Images/pokojpage/majitel a kocka3.jpg');
+}
+
+.room-card:hover .room-image {
+    filter: brightness(0.75);
+}
+
+.room-card:hover .room-image {
+    filter: brightness(0.75);
+}
+
+/* Nadpis */
+.room-card h3 {
+    font-size: 1.6em;
+    margin: 0 0 8px 0;
+    color: #3f2e13;
+    text-align: center;
+}
+
+/* Krátký popisek */
+.room-card p {
+    font-size: 1.05em;
+    color: #5b4c29;
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 18px;
+}
+
+/* Tlačítko */
+.show-more-btn {
+    padding: 10px 28px;
+    font-size: 1.05em;
+    font-weight: 600;
+    background-color: #ed9745;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.23s ease;
+}
+.show-more-btn:hover,
+.show-more-btn:focus {
+    background-color: #d87f1e;
+    outline: none;
+}
+
+.more-text {
+    margin-top: 18px;
+    font-size: 1em;
+    color: #4f4330;
+    line-height: 1.5;
+}
+
+/* Responzivita na mobil */
+@media (max-width: 660px) {
+    .rooms-hero {
+        padding: 90px 15px 50px 15px;
+    }
+    .rooms-hero .hero-text h1 {
+        font-size: 2.4em;
+        margin-bottom: 30px;
+    }
+    .hero-buttons {
+        gap: 16px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero-buttons .btn {
+        padding: 14px 30px;
+        width: 80%;
+        font-size: 1.05em;
+    }
+    .room-cards {
+        grid-template-columns: 1fr;
+    }
+    .room-card.room-cat-1,
+    .room-card.room-cat-2,
+    .room-card.room-cat-3 {
+        padding-top: 140px;
+    }
+}
