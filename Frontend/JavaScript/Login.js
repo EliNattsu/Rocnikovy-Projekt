@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const togglePasswordBtn = document.getElementById('togglePass');
-    const passwordInput = document.getElementById('password');
     const forgotPasswordLink = document.querySelector('.forgot');
     const forgotPasswordForm = document.getElementById('forgotPasswordForm');
     const sendResetRequestBtn = document.getElementById('sendResetRequest');
@@ -8,11 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.querySelector('.login-panel form');
 
     // Tlačítko zobrazit/skrýt heslo
-    togglePasswordBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        togglePasswordBtn.innerHTML = type === 'password' ? '👁️' : '👁‍🗨️';
+    const togglePasswordChk = document.getElementById('togglePassChk');
+    const passwordInput = document.getElementById('password');
+    togglePasswordChk.addEventListener('change', () => {
+        passwordInput.type = togglePasswordChk.checked ? 'text' : 'password';
     });
 
     // Zapomenuté heslo – vyjede obnovovací část
