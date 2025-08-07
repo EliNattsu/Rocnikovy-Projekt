@@ -1,0 +1,82 @@
+main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-top: 110px;
+    font-family: var(--font-B), serif;
+    color: #433722;
+    line-height: 1.5;
+}
+
+.img-container {
+    background: url('/Images/kontaktpage.jpg') no-repeat center center/cover;
+    opacity: 0.9;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 36px;
+    margin-top: 40px;
+    box-shadow: 0 4px 10px rgb(237 151 69 / 0.3);
+}
+
+.img-container h1 {
+    color: #fff;
+    font-size: 3em;
+    font-weight: 700;
+    text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.89);
+    margin: 0;
+    text-align: center;
+}
+
+.kontakt-container {
+    background: #f4f1ea;
+    padding: 28px 24px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgb(237 151 69 / 0.2);
+}
+
+.kontakt-container h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.45em;
+    font-weight: 600;
+    border-bottom: 2px solid #ed9745;
+    padding-bottom: 6px;
+    color: #6b5029;
+}
+
+.kontakt-container p {
+    margin: 8px 0 20px 0;
+    font-size: 1em;
+    color: #5b4c27;
+}
+
+.tel-mail {
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.address, .faktura {
+    font-style: normal;
+    line-height: 1.45;
+}
+@media (max-width: 480px) {
+    .img-container {
+        height: 160px;
+    }
+    .img-container h1 {
+        font-size: 2em;
+    }
+    .kontakt-container {
+        padding: 20px 16px;
+    }
+    .kontakt-container h4 {
+        font-size: 1.25em;
+    }
+    .reservation-btn {
+        width: 100%;
+        padding: 14px 0;
+    }
+}
