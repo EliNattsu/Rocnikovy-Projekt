@@ -1,0 +1,311 @@
+main{
+    padding-top: 100px;
+    font-family: var(--font-B), serif;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(208, 174, 116, 0.11);
+}
+.hidden{
+    display: none;
+}
+/* prubeh kroku */
+.reservation-steps {
+    display: flex;
+    align-items: center;
+    max-width: 650px;
+    margin: 36px auto 40px auto;
+    justify-content: space-between;
+}
+.step-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex: 1 1 0;
+}
+.step-label {
+    font-size: 1.08em;
+    padding: 0 14px;
+    font-weight: 500;
+    color: #b4a99d;
+    z-index: 2;
+    border-radius: 3px;
+    transition: color 0.15s;
+}
+.step-item.active .step-label {
+    font-weight: 700;
+    color: #ed9745;
+}
+.step-line {
+    height: 3px;
+    background: #e3ddd4;
+    width: 100%;
+    margin: 0;
+    z-index: 1;
+}
+.step-item:last-child .step-line {
+    display: none;
+}
+.step-item:not(:last-child) .step-label {
+    margin-right: 0;
+}
+.step-item:last-child .step-label { color: #888; }
+
+body {
+    background-color: #faf8f3;
+    color: #3a3a3a;
+    margin: 0 auto;
+}
+
+.reservation-row {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Levá část je širší, pravá (účtenka) užší */
+.reservation-row section {
+    flex: 2 1 0;
+    min-width: 0;
+}
+
+.reservation-row aside#receipt {
+    flex: 1 1 260px;
+    min-width: 220px;
+    max-width: 320px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Sekce kroků (steps) */
+section {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.06);
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Tlačítka výběru pokojů */
+#step1 > div:first-of-type button {
+    background-color: #fbf8f0;
+    border: 2px solid #d4c7af;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#step1 > div:first-of-type button:hover:not(:disabled) {
+    background-color: #ed9745;
+    border-color: #ed9745;
+    color: white;
+}
+
+#step1 > div:first-of-type button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Vybraný typ pokoje */
+#step1 > div:first-of-type button[style*="background-color: rgb(173, 216, 230)"] {
+    background-color: #ed9745 !important;
+    border-color: #bf7300 !important;
+    color: white !important;
+}
+
+/* Formuláře a inputy */
+label {
+    display: block;
+    margin: 15px 0 5px 0;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.6px solid #cfc7b8;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background-color: #fcfbf7;
+    color: #4a4a4a;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #ed9745;
+    outline: none;
+    background-color: #fff8e1;
+}
+
+/* Textarea */
+textarea {
+    resize: vertical;
+    min-height: 65px;
+}
+
+/* Tlačítka akce (Vyhledat, Rezervovat, Zpět) */
+button#searchBtn,
+button#bookBtn,
+button#backToStep1,
+article button.reserveBtn {
+    background-color: #ed9745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 18px;
+}
+
+button#searchBtn:disabled,
+button#bookBtn:disabled {
+    background-color: #f5c17d;
+    cursor: not-allowed;
+}
+
+button#searchBtn:hover:not(:disabled),
+button#bookBtn:hover:not(:disabled),
+button#backToStep1:hover,
+article button.reserveBtn:hover {
+    background-color: #bf7300;
+}
+
+/* Seznam pokojů */
+#roomsList article.room {
+    border: 1.5px solid #d4c7af;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+#roomsList article.room h4 {
+    margin-bottom: 7px;
+    color: #9d6b02;
+}
+
+#roomsList article.room p {
+    margin-bottom: 10px;
+    color: #6a5e40;
+}
+
+/* Účtenka */
+#receipt {
+    border: 2px solid #ed9745;
+    border-radius: 10px;
+    padding: 22px 26px;
+    font-weight: 700;
+    color: #7a5a00;
+}
+
+#receipt h3 {
+    margin-bottom: 18px;
+}
+
+/* Účtenka seznam položek */
+#roomsSummaryList {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 18px;
+}
+
+#roomsSummaryList li {
+    margin-bottom: 9px;
+}
+
+/* Check boxy pro podmínky */
+fieldset > p {
+    margin-top: 16px;
+}
+
+input[type="checkbox"] {
+    margin-right: 12px;
+    transform: scale(1.3);
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Vyznačení povinných polí */
+label > span {
+    color: #ed9745;
+    margin-left: 5px;
+}
+
+/* Menší hrany a mezery v blocích koček */
+fieldset#catsInfoFieldset > div {
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #d8cfa8;
+}
+
+/* Responsivní */
+@media (max-width: 600px) {
+    .reservation-steps {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    #step1 > div:first-of-type button {
+        width: 100%;
+        margin: 8px 0;
+    }
+    .step-line{
+        display: none;
+    }
+    .reservation-row aside#receipt {
+        order: -1;
+        width: 100%;
+        min-width: 0;
+        margin-bottom: 16px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .reservation-steps{
+        margin: 36px auto 40px auto !important;
+    }
+}
+@media (max-width: 800px) {
+    .reservation-row {
+        flex-direction: column;
+        gap: 18px;
+
+    }
+    .reservation-row aside#receipt {
+        order: -1;
+        width: 100%;
+        min-width: 0;
+        margin-bottom: 16px;
+        margin-left: 235px;
+        margin-right: 70px;
+    }
+    .reservation-steps{
+        margin: 36px 90px 40px 150px;
+    }
+    section{
+        width: 100%;
+    }
+}
