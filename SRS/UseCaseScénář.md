@@ -19,7 +19,7 @@
 6. Vybere si pokoj, který se mu líbí, a klikne na tlačítko **„Rezervovat“**.  
 7. Vyplní požadované údaje o sobě a o kočkách:  
    - Běžný uživatel vyplní jméno, příjmení, e-mail a telefon.  
-   - Registrovaný uživatel vidí údaje předvyplněné z profilu a může je upravit.  
+   - Pokud je uživatel registrovaný a přihlášený, frontend nejprve načte jeho profilová data a údaje o kočkách z backendu a předvyplní do formuláře. 
 8. (Volitelně) Běžný uživatel může zaškrtnout možnost **„Chci se zaregistrovat“**.  
    - Heslo mu přijde e-mailem a po přihlášení si ho musí změnit.  
 9. Klikne na tlačítko **„Zarezervovat“**.  
@@ -30,7 +30,7 @@
     - Uloží rezervaci a přiřadí jí ID.  
     - Odešle uživateli potvrzovací e-mail s instrukcemi.  
     - Vrátí do frontendu informace o úspěšném uložení rezervace.  
-12. **Frontend** zobrazí uživateli potvrzení rezervace s rekapitulací.  
+12. **Frontend** zobrazí uživateli potvrzení rezervace.  
 
 ---
 
