@@ -37,9 +37,9 @@
 ### Alternativní toky  
 
 **A1: Chybný formát datumu**  
-- 3a. Backend zjistí, že pokoj/termín je obsazen.  
-- 3b. Vrací odpověď 409 (Conflict) s hláškou „Vybraný termín není k dispozici“.  
-- 3c. Frontend zobrazí chybovou hlášku a nabídne volné alternativní termíny.  
+- 3a. Frontend zjistí, že byl zadán datum v minulosti.  
+- 3b. Zobrazí hlášku „Datum je vybráno v minulosti“.  
+- 3c. Uživatel musí datum opravit.  
 
 **A2: Chybný formát dat**  
 - 11a. Backend při validaci najde chyby (např. chybně vyplněný e-mail, nevyplněný údaj o počtu koček).  
