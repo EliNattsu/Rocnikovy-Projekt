@@ -1,82 +1,67 @@
 package cz.catparadise.controller;
 
 import cz.catparadise.model.User;
-import cz.catparadise.repository.UserRepository;
-import cz.catparadise.security.JwtUtil;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import cz.catparadise.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/user")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/users")
 public class UserController {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtUtil = jwtUtil;
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/me")
-    public User getCurrentUser(HttpServletRequest request) {
-        User user = getCurrentUserFromToken(request);
-        if (user == null) {
-            throw new RuntimeException("Není přihlášen");
-        }
-        return user;
+    // Přidání nového uživatele (POST /api/users)
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
-    @PostMapping("/register")
-    public User register(@RequestBody User newUser) {
-        // Hashování hesla
-        newUser.setPasswordHash(passwordEncoder.encode(newUser.getPasswordHash()));
-        return userRepository.save(newUser);
+    // Výpis všech uživatelů (GET /api/users)
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    @PutMapping("/me")
-    public User updateUser(HttpServletRequest request, @RequestBody User updatedUser) {
-        User user = getCurrentUserFromToken(request);
-        if (user == null) {
-            throw new RuntimeException("Není přihlášen");
-        }
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setPhoneNumber(updatedUser.getPhoneNumber());
-        return userRepository.save(user);
+    // Najdi uživatele podle ID (GET /api/users/{id})
+    @GetMapping("/{id}")
+    public Optional<User> getUserById(@PathVariable Integer id) {
+        return userService.getUserById(id);
     }
 
-    @PutMapping("/me/password")
-    public String changePassword(HttpServletRequest request,
-                                 @RequestParam String oldPassword,
-                                 @RequestParam String newPassword) {
-        User user = getCurrentUserFromToken(request);
-        if (user == null) {
-            return "Není přihlášen";
-        }
-        if (!passwordEncoder.matches(oldPassword, user.getPasswordHash())) {
-            return "Původní heslo se neshoduje!";
-        }
-        user.setPasswordHash(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-        return "Heslo bylo úspěšně změněno";
+    // Smazání uživatele podle ID (DELETE /api/users/{id})
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
     }
 
-    private User getCurrentUserFromToken(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return null;
-        }
-        String token = authHeader.substring(7);
-        if (!jwtUtil.validateToken(token)) {
-            return null;
-        }
-        String email = jwtUtil.extractEmail(token);
-        return userRepository.findByEmail(email).orElse(null);
+    @GetMapping("/by-email")
+    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
+        return userService.getUserByEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(
+            @PathVariable Integer id,
+            @RequestBody User updatedUser
+    ) {
+        return userService.getUserById(id).map(user -> {
+            user.setFirstName(updatedUser.getFirstName());
+            user.setLastName(updatedUser.getLastName());
+            user.setPhoneNumber(updatedUser.getPhoneNumber());
+            userService.saveUser(user);
+            return ResponseEntity.ok(user);
+        }).orElse(ResponseEntity.notFound().build());
     }
 }

@@ -21,13 +21,15 @@ public class Cat {
     @Column(name="notes", columnDefinition = "TEXT")
     private String notes;
 
+    // Vazba na uživatele
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable=false)
-    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"reservations", "cats", "passwordHash"})
+    @JsonBackReference(value = "user-cats") // vlastní reference název pro větší kontrolu
     private User user;
 
-    @ManyToMany(mappedBy = "cats")
-    @JsonBackReference
+    // Vazba na rezervace
+    @ManyToMany(mappedBy = "cats", fetch = FetchType.LAZY)
+    @JsonBackReference(value = "reservation-cats")
     private Set<Reservation> reservations = new HashSet<>();
 
     public Cat() {}
@@ -39,7 +41,6 @@ public class Cat {
         this.user = user;
     }
 
-    // gettery a settery
     public Integer getCatId() { return catId; }
     public void setCatId(Integer catId) { this.catId = catId; }
 

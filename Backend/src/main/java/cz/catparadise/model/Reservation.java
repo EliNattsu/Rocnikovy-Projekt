@@ -1,5 +1,6 @@
 package cz.catparadise.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -13,27 +14,35 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reservationId;
 
-    @Column(name="start_date", nullable=false)
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name="end_date", nullable=false)
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @Column(name="status", nullable=false, length=10)
+    @Column(name = "status", nullable = false, length = 10)
     private String status;
 
+    @Column(name = "reference_number")
+    private String referenceNumber;
+
+    public String getReferenceNumber() { return referenceNumber; }
+    public void setReferenceNumber(String referenceNumber) { this.referenceNumber = referenceNumber; }
+
+    // Vazba na uživatele – obrácená reference vůči User.getReservations()
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id2", nullable=false)
-    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"reservations", "cats", "passwordHash"})
+    @JoinColumn(name = "user_id2", nullable = false)
+    @JsonBackReference(value = "user-reservations")
     private User user;
 
+    // Vazba na kočky
     @ManyToMany
     @JoinTable(
             name = "Cat_Reservations",
             joinColumns = @JoinColumn(name = "reservation_id"),
             inverseJoinColumns = @JoinColumn(name = "cat_id")
     )
-    @JsonManagedReference
+    @JsonManagedReference(value = "reservation-cats")
     private Set<Cat> cats = new HashSet<>();
 
     public Reservation() {}
@@ -45,7 +54,7 @@ public class Reservation {
         this.user = user;
     }
 
-    // gettery a settery
+    // --- Gettery a settery ---
     public Integer getReservationId() { return reservationId; }
     public void setReservationId(Integer reservationId) { this.reservationId = reservationId; }
 

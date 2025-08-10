@@ -1,5 +1,6 @@
 package cz.catparadise.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -30,10 +31,14 @@ public class User {
     @Column(name="registration_date", nullable=false)
     private LocalDateTime registrationDate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    // Vztah na Cats – pozor na serializaci, abys neměla cyklickou chybu
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "user-cats")
     private Set<Cat> cats = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    // Vztah na Reservations
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "user-reservations")
     private Set<Reservation> reservations = new HashSet<>();
 
     public User() {}
@@ -46,8 +51,8 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.registrationDate = registrationDate;
     }
-    // gettery a settery...
 
+    // --- Gettery a settery ---
     public Integer getUserId() { return userId; }
     public void setUserId(Integer userId) { this.userId = userId; }
 
