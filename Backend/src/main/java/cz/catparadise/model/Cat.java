@@ -1,5 +1,6 @@
 package cz.catparadise.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,9 +23,11 @@ public class Cat {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable=false)
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"reservations", "cats", "passwordHash"})
     private User user;
 
     @ManyToMany(mappedBy = "cats")
+    @JsonBackReference
     private Set<Reservation> reservations = new HashSet<>();
 
     public Cat() {}

@@ -1,5 +1,6 @@
 package cz.catparadise.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id2", nullable=false)
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"reservations", "cats", "passwordHash"})
     private User user;
 
     @ManyToMany
@@ -31,6 +33,7 @@ public class Reservation {
             joinColumns = @JoinColumn(name = "reservation_id"),
             inverseJoinColumns = @JoinColumn(name = "cat_id")
     )
+    @JsonManagedReference
     private Set<Cat> cats = new HashSet<>();
 
     public Reservation() {}
