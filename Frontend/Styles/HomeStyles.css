@@ -12,7 +12,7 @@ main {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    background: url('/Images/homepage/homepage.jpg') no-repeat center center/cover;
+    background: url('../Images/homepage/homepage.jpg') no-repeat center center/cover;
 }
 #Rating::after {
     content: "";
@@ -162,11 +162,11 @@ main {
     background-position: center;
     filter: brightness(0.65);
 }
-.image     { background-image: url('/Images/homepage/homepage1.jpg'); }
-.image2    { background-image: url('/Images/homepage/homepage2.jpg'); }
-.image3    { background-image: url('/Images/homepage/homepage3.jpg'); }
-.image4    { background-image: url('/Images/homepage/homepage4.jpg'); }
-.image5    { background-image: url('/Images/homepage/homepage5.jpg'); }
+.image     { background-image: url('../Images/homepage/homepage1.jpg'); }
+.image2    { background-image: url('../Images/homepage/homepage2.jpg'); }
+.image3    { background-image: url('../Images/homepage/homepage3.jpg'); }
+.image4    { background-image: url('../Images/homepage/homepage4.jpg'); }
+.image5    { background-image: url('../Images/homepage/homepage5.jpg'); }
 
 .card .text {
     padding: 22px 17px 18px 17px;

@@ -4,7 +4,7 @@ main{
 }
 
 .about-hero {
-    background: url(/Images/abouthotel/abouthotelpage.jpg) no-repeat center center/cover;;
+    background: url(../Images/abouthotel/abouthotelpage.jpg) no-repeat center center/cover;;
     opacity: 0.8;
     color: #ffffff;
     text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.89);

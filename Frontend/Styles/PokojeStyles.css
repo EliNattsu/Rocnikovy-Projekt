@@ -6,7 +6,7 @@ html{
     scroll-padding-top: 129px;
 }
 .rooms-hero {
-    background: url('/Images/pokojpage/pokojepage.jpg') no-repeat center center/cover;
+    background: url('../Images/pokojpage/pokojepage.jpg') no-repeat center center/cover;
     padding: 120px 20px 60px 20px;
     text-align: center;
     color: #fff;
@@ -101,22 +101,22 @@ html{
 }
 /* Obrázky - příklad, nahraď cestami k obrázkům */
 .room-img-1 {
-    background-image: url('/Images/pokojpage/pouzekocka1.jpg');
+    background-image: url('../Images/pokojpage/pouzekocka1.jpg');
 }
 .room-img-2 {
-    background-image: url('/Images/pokojpage/pouzekocka2.jpg');
+    background-image: url('../Images/pokojpage/pouzekocka2.jpg');
 }
 .room-img-3 {
-    background-image: url('/Images/pokojpage/pouzekocka3.jpg');
+    background-image: url('../Images/pokojpage/pouzekocka3.jpg');
 }
 .room-owner-img-1 {
-    background-image: url('/Images/pokojpage/majitel a kocka1.jpg');
+    background-image: url('../Images/pokojpage/majitel a kocka1.jpg');
 }
 .room-owner-img-2 {
-    background-image: url('/Images/pokojpage/majitel a kocka2.jpg');
+    background-image: url('../Images/pokojpage/majitel a kocka2.jpg');
 }
 .room-owner-img-3 {
-    background-image: url('/Images/pokojpage/majitel a kocka3.jpg');
+    background-image: url('../Images/pokojpage/majitel a kocka3.jpg');
 }
 
 .room-card:hover .room-image {
