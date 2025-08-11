@@ -4,7 +4,7 @@ Webová aplikace pro rezervaci pobytů pro kočky.
 Uživatelé se mohou registrovat, spravovat své kočky a vytvářet rezervace online.
 
 ## 🛠 Tech stack
-- **Frontend:** HTML, CSS, JavaScript (Node.js pro vývoj)
+- **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Java Spring Boot
 - **Databáze:** MySQL
 
