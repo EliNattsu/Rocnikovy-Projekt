@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="Styles/FooterStyles.css">
     <script src="JavaScript/Rezervace.js"></script>
     <script src="JavaScript/SideBar.js"></script>
-    <script src="JavaScript/api.js"></script>
     <link rel="icon" href="Images/icon.png" type="image/png">
     <style>
         @font-face {
@@ -248,6 +247,10 @@
 
                 <label for="phone">Telefon: <span style="color:red">*</span></label>
                 <input type="tel" id="phone" name="phone" required />
+                <div id="password-container" style="display:none;">
+                    <label for="password">Heslo: <span style="color:red">*</span></label>
+                    <input type="password" id="password" name="password" />
+                </div>
             </fieldset>
 
             <fieldset id="catsInfoFieldset">

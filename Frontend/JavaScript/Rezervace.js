@@ -1,42 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
-    (function() {
+    (function () {
+        // ----- deklarace elementů -----
         const step1 = document.getElementById('step1');
         const step2 = document.getElementById('step2');
         const confirmation = document.getElementById('confirmation');
         const roomsList = document.getElementById('roomsList');
         const receipt = document.getElementById('receipt');
-
         const catsSelect = document.getElementById('cats');
         const ownersSelect = document.getElementById('owners');
         const searchBtn = document.getElementById('searchBtn');
         const arrivalDateInput = document.getElementById('arrivalDate');
         const departureDateInput = document.getElementById('departureDate');
-
         const catOnlyBtn = document.getElementById('catOnlyBtn');
         const ownerAndCatBtn = document.getElementById('ownerAndCatBtn');
-
         const stepsIndicators = [
             document.getElementById('step-indicator-1'),
             document.getElementById('step-indicator-2'),
-            document.getElementById('step-indicator-3'),
+            document.getElementById('step-indicator-3')
         ];
-
         const catsInfoFieldset = document.getElementById('catsInfoFieldset');
         const summaryForm = document.getElementById('summaryForm');
         const backToStep1Btn = document.getElementById('backToStep1');
-
         const lengthOfStaySpan = document.getElementById('lengthOfStay');
         const arrivalDateReceipt = document.getElementById('arrivalDateReceipt');
         const departureDateReceipt = document.getElementById('departureDateReceipt');
         const roomsSummaryList = document.getElementById('roomsSummaryList');
         const totalPriceSpan = document.getElementById('totalPrice');
+        const registerCheckbox = document.getElementById('register');
+        const passwordContainer = document.getElementById('password-container');
+        const passwordInput = document.getElementById('password');
 
         let selectedRoomType = null;
         let selectedRoom = null;
         let selectedPrice = 0;
         let catsCount = 1;
 
-        // Pomocné funkce
+        // automatické předvyplnění pro přihlášené
+        try {
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                document.getElementById('email').value = localStorage.getItem("userEmail") || '';
+                document.getElementById('firstName').value = localStorage.getItem("firstName") || '';
+                document.getElementById('lastName').value = localStorage.getItem("lastName") || '';
+                document.getElementById('phone').value = localStorage.getItem("userPhone") || '';
+            }
+        } catch (e) {}
+
+        // zobraz/skrýj pole pro heslo
+        function togglePasswordField() {
+            if (registerCheckbox && registerCheckbox.checked) {
+                passwordContainer.style.display = 'block';
+                passwordInput.setAttribute('required', 'required');
+            } else {
+                passwordContainer.style.display = 'none';
+                passwordInput.removeAttribute('required');
+                passwordInput.value = '';
+            }
+        }
+        if (registerCheckbox) {
+            registerCheckbox.addEventListener('change', togglePasswordField);
+            togglePasswordField();
+        }
+
         function updateStepIndicator(currentStep) {
             stepsIndicators.forEach((el, i) => {
                 el.classList.toggle('active', i === currentStep - 1);
@@ -45,102 +69,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function updateRoomTypeButtonsState() {
             const ownersCount = parseInt(ownersSelect.value, 10);
-
             if (isNaN(ownersCount)) {
-                // Pokud není vybrán počet majitelů, obě tlačítka deaktivuj
                 catOnlyBtn.disabled = true;
                 ownerAndCatBtn.disabled = true;
                 selectedRoomType = null;
-                catOnlyBtn.style.backgroundColor = '';
-                ownerAndCatBtn.style.backgroundColor = '';
-                updateSearchBtnState();
-                return;
+                return updateSearchBtnState();
             }
-
             if (ownersCount > 0) {
-                // Pokud je alespoň jeden majitel, deaktivuj "Pokoj pro kočku"
                 catOnlyBtn.disabled = true;
                 ownerAndCatBtn.disabled = false;
-
-                // Pokud je aktuálně vybrán "Pokoj pro kočku", tak výběr zruš
-                if (selectedRoomType === 'catOnly') {
-                    selectedRoomType = null;
-                    catOnlyBtn.style.backgroundColor = '';
-                    updateSearchBtnState();
-                }
+                if (selectedRoomType === 'catOnly') selectedRoomType = null;
             } else {
-                // Pokud není vybrán žádný majitel (0), deaktivuj "Pokoj pro majitele a kočku"
                 catOnlyBtn.disabled = false;
                 ownerAndCatBtn.disabled = true;
-
-                // Pokud byl vybrán "Pokoj pro majitele a kočku", zruš výběr
-                if (selectedRoomType === 'ownerAndCat') {
-                    selectedRoomType = null;
-                    ownerAndCatBtn.style.backgroundColor = '';
-                    updateSearchBtnState();
-                }
+                if (selectedRoomType === 'ownerAndCat') selectedRoomType = null;
             }
+            updateSearchBtnState();
         }
-
-// Zavolej hned po načtení i při změně ownersSelect
         ownersSelect.addEventListener('change', () => {
             updateRoomTypeButtonsState();
             updateSearchBtnState();
         });
-
-// Inicializace stavu tlačítek
         updateRoomTypeButtonsState();
 
         function validateStep1Inputs() {
-            // Podmínky:
-            // Výběr typu pokoje musí být vybraný (selectedRoomType != null)
-            // datum příjezdu a odjezdu musí být vyplněné a odjezd musí být po příjezdu
-            // počet koček minimálně 1 (už je omezeno v selectu)
-            if (!selectedRoomType) return false;
-
-            if(!arrivalDateInput.value || !departureDateInput.value) return false;
-
-            if(new Date(departureDateInput.value) <= new Date(arrivalDateInput.value)) return false;
-
-            // Počet koček už je 1-5 povoleno, takže ok
-            return true;
+            return selectedRoomType && arrivalDateInput.value && departureDateInput.value &&
+                new Date(departureDateInput.value) > new Date(arrivalDateInput.value);
         }
-
-        function filterRooms() {
-            const roomArticles = roomsList.querySelectorAll('article.room');
-
-            roomArticles.forEach(article => {
-                if(article.dataset.roomtype === selectedRoomType) {
-                    article.classList.remove('hidden');
-                } else {
-                    article.classList.add('hidden');
-                }
-            });
-        }
-
-        // Výběr typu pokoje
-        [catOnlyBtn, ownerAndCatBtn].forEach(btn => {
-            btn.addEventListener('click', () => {
-                selectedRoomType = btn.dataset.roomtype;
-
-                // Vykreslit vizuální stav výběru
-                [catOnlyBtn, ownerAndCatBtn].forEach(b => b.style.backgroundColor = '');
-                btn.style.backgroundColor = '#add8e6';
-
-                // Po výběru typu pokoje je možné povolit vyhledání, pokud ostatní podmínky jsou OK
-                updateSearchBtnState();
-
-                // Pokud už bylo vyhledáno, filtruj pokoje rovnou
-                filterRooms();
-            });
-        });
-
-        // Kontrola zda umožnit tlačítko vyhledat
         function updateSearchBtnState() {
             searchBtn.disabled = !validateStep1Inputs();
         }
-
-        // Sleduj změny u dat a počtů hostů, aby se tlačítko vyhledat aktivovalo/deaktivovalo
         [arrivalDateInput, departureDateInput, catsSelect].forEach(el => {
             el.addEventListener('change', () => {
                 catsCount = parseInt(catsSelect.value, 10);
@@ -148,174 +106,225 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Změna počtu majitelů pro případ rozšíření validace může být přidána
-
-        // Tlačítko "Vyhledat"
         searchBtn.addEventListener('click', () => {
-            filterRooms();
+            const roomArticles = roomsList.querySelectorAll('article.room');
+            roomArticles.forEach(article =>
+                article.classList.toggle('hidden', article.dataset.roomtype !== selectedRoomType)
+            );
             roomsList.style.display = 'block';
-            // Po vyhledání uživitelně nelze kliknout znovu bez změny vstupů - nechám povolené, aby mohl měnit výběr
         });
 
-        // Klik na "Rezervovat" u pokoje - přejde na souhrn a zobrazí formuláře
-        roomsList.addEventListener('click', e => {
-            if(!e.target.classList.contains('reserveBtn')) return;
+        [catOnlyBtn, ownerAndCatBtn].forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectedRoomType = btn.dataset.roomtype;
+                [catOnlyBtn, ownerAndCatBtn].forEach(b => b.style.backgroundColor = '');
+                btn.style.backgroundColor = '#add8e6';
+                updateSearchBtnState();
+            });
+        });
 
+        roomsList.addEventListener('click', e => {
+            if (!e.target.classList.contains('reserveBtn')) return;
             const article = e.target.closest('article.room');
             selectedRoom = {
                 name: article.querySelector('h4').textContent,
                 price: parseInt(article.querySelector('p:nth-of-type(2)').textContent.replace(/\D+/g, '')) || 0
             };
             selectedPrice = selectedRoom.price;
-
-            // Přepni krok
             step1.style.display = 'none';
             roomsList.style.display = 'none';
             step2.style.display = 'block';
-
             updateStepIndicator(2);
-
-            // Vytvoř formuláře pro kočky podle počtu
             renderCatForms();
-
-            // Zobraz účtenku
             renderReceipt();
-
             receipt.style.display = 'block';
-
-            // Skryj potvrzení
             confirmation.style.display = 'none';
-
-            // Scroll k topu (lepší UX)
             window.scrollTo(0, 0);
         });
 
-        // Funkce pro generování formulářů koček podle počtu koček z výběru
         function renderCatForms() {
-            catsCount = parseInt(catsSelect.value, 10);
             catsInfoFieldset.innerHTML = '<legend>Údaje koček</legend>';
-            for(let i=1; i<=catsCount; i++) {
-                const div = document.createElement('div');
-                div.innerHTML = `
-      <h4>Kočka ${i}</h4>
-      <label for="catName${i}">Jméno: <span style="color:red">*</span></label>
-      <input type="text" id="catName${i}" name="catName${i}" required />
-
-      <label for="catAge${i}">Věk: <span style="color:red">*</span></label>
-      <input type="number" id="catAge${i}" name="catAge${i}" min="0" required />
-
-      <label for="catReq${i}">Speciální požadavky:</label>
-      <textarea id="catReq${i}" name="catReq${i}" placeholder="Nepovinné"></textarea>
-      <hr />
-    `;
-                catsInfoFieldset.appendChild(div);
+            for (let i = 1; i <= catsCount; i++) {
+                catsInfoFieldset.insertAdjacentHTML('beforeend', `
+                    <div>
+                        <h4>Kočka ${i}</h4>
+                        <label>Jméno: <span style="color:red">*</span></label>
+                        <input type="text" id="catName${i}" required/>
+                        <label>Věk: <span style="color:red">*</span></label>
+                        <input type="number" id="catAge${i}" min="0" required/>
+                        <label>Speciální požadavky:</label>
+                        <textarea id="catReq${i}" placeholder="Nepovinné"></textarea>
+                        <hr/>
+                    </div>
+                `);
             }
         }
 
-        // Funkce pro výpočet délky pobytu a zobrazení v účtence
         function renderReceipt() {
-            const arrivalDate = arrivalDateInput.value;
-            const departureDate = departureDateInput.value;
-
-            if(!arrivalDate || !departureDate) {
-                lengthOfStaySpan.textContent = '___';
-                arrivalDateReceipt.textContent = '___';
-                departureDateReceipt.textContent = '___';
-                roomsSummaryList.innerHTML = '';
-                totalPriceSpan.textContent = '___';
-                return;
-            }
-
-            const arrival = new Date(arrivalDate);
-            const departure = new Date(departureDate);
-            const diffTime = departure - arrival;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
+            const arrival = new Date(arrivalDateInput.value);
+            const departure = new Date(departureDateInput.value);
+            if (!arrivalDateInput.value || !departureDateInput.value) return;
+            const diffDays = Math.ceil((departure - arrival) / (1000 * 60 * 60 * 24));
             lengthOfStaySpan.textContent = diffDays.toString();
             arrivalDateReceipt.textContent = arrival.toLocaleDateString('cs-CZ');
             departureDateReceipt.textContent = departure.toLocaleDateString('cs-CZ');
-
-            roomsSummaryList.innerHTML = '';
-            const liRoom = document.createElement('li');
-            liRoom.textContent = `${selectedRoom.name}, Cena: ${selectedRoom.price} Kč`;
-            roomsSummaryList.appendChild(liRoom);
-
+            roomsSummaryList.innerHTML = `<li>${selectedRoom.name}, Cena: ${selectedRoom.price} Kč</li>`;
             totalPriceSpan.textContent = selectedRoom.price;
         }
 
-        // Tlačítko zpět na výběr pokojů
         backToStep1Btn.addEventListener('click', () => {
             step2.style.display = 'none';
             receipt.style.display = 'none';
             confirmation.style.display = 'none';
             step1.style.display = 'block';
             updateStepIndicator(1);
-
-            // Vymaž vybraný pokoj, aby bylo jasné, že je potřeba vybrat znovu
             selectedRoom = null;
             selectedPrice = 0;
-
-            // Reset formulář souhrnu
             summaryForm.reset();
-
-            // Skryj účtenku
-            receipt.style.display = 'none';
-
+            togglePasswordField();
             window.scrollTo(0, 0);
         });
 
-        // Odeslání formuláře rezervace
-        summaryForm.addEventListener('submit', e => {
+        // hlavní submit rezervace
+        summaryForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Přidej zde další validace, pokud chceš
+            let userData = null;
+            let isLoggedIn = false;
+            try { isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; } catch {}
 
-            // Při úspěšném odeslání zobraz potvrzení
-            step2.style.display = 'none';
-            receipt.style.display = 'none';
-            confirmation.style.display = 'block';
+            const registerChecked = registerCheckbox.checked;
+            const owner = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phoneNumber: document.getElementById('phone').value.trim()
+            };
 
-            updateStepIndicator(3);
+            function createCatsAndReservation() {
+                const catsArray = [];
+                let promise = Promise.resolve();
 
-            window.scrollTo(0, 0);
-        });
-    })();
+                for (let i = 1; i <= catsCount; i++) {
+                    promise = promise.then(() => {
+                        const name = document.getElementById(`catName${i}`).value.trim();
+                        const age = parseInt(document.getElementById(`catAge${i}`).value, 10);
+                        const specialNeeds = document.getElementById(`catReq${i}`).value.trim();
+                        const catPayload = { catName: name, age, notes: specialNeeds, user: { userId: userData.userId } };
 
+                        return fetch("http://localhost:8080/api/cats", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(catPayload)
+                        }).then(res => {
+                            if (!res.ok) {
+                                return res.text().then(errText => {
+                                    console.error("Chyba při ukládání kočky:", res.status, errText);
+                                    alert("Chyba při ukládání kočky: " + errText);
+                                    throw new Error();
+                                });
+                            }
+                            return res.json();
+                        }).then(cat => catsArray.push(cat));
+                    });
+                }
 
-// -----------------------------------------------------------------------------------------------------------------------
-    function formatDate(date) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // měsíce od 0
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
+                promise.then(() => {
+                    const reservation = {
+                        startDate: arrivalDateInput.value,
+                        endDate: departureDateInput.value,
+                        status: "pending",
+                        user: { userId: userData.userId },
+                        cats: catsArray.map(cat => ({ catId: cat.catId }))
+                    };
+                    return fetch("http://localhost:8080/api/reservations", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(reservation)
+                    }).then(res => {
+                        if (!res.ok) {
+                            return res.text().then(errText => {
+                                console.error("Chyba při vytvoření rezervace:", res.status, errText);
+                                alert("Chyba při vytvoření rezervace: " + errText);
+                                throw new Error();
+                            });
+                        }
+                    });
+                }).then(() => {
+                    step2.style.display = 'none';
+                    receipt.style.display = 'none';
+                    confirmation.style.display = 'block';
+                    updateStepIndicator(3);
+                    window.scrollTo(0, 0);
+                }).catch(() => {});
+            }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        const arrivalInput = document.getElementById('arrivalDate');   // odpovídá tvému html
-        const departureInput = document.getElementById('departureDate');
+            if (!isLoggedIn) {
+                if (registerChecked) {
+                    const password = passwordInput.value.trim();
+                    if (!password) { alert("Prosím zadejte heslo pro registraci."); return; }
+                    owner.passwordHash = password;
+                } else {
+                    owner.passwordHash = null;
+                }
+                fetch("http://localhost:8080/api/auth/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(owner)
+                }).then(res => {
+                    if (!res.ok) {
+                        return res.text().then(errText => {
+                            if (res.status === 409) {
+                                alert("Účet s tímto e-mailem už existuje.");
+                            } else {
+                                alert("Chyba registrace (" + res.status + "): " + errText);
+                            }
+                            console.error("Chyba registrace:", res.status, errText);
+                            throw new Error();
+                        });
+                    }
+                    return res.json();
+                }).then(user => {
+                    userData = user;
+                    createCatsAndReservation();
+                }).catch(() => {});
 
-        const today = new Date();
-        const tomorrow = new Date();
-        tomorrow.setDate(today.getDate() + 1);
-
-        arrivalInput.value = formatDate(today);
-        departureInput.value = formatDate(tomorrow);
-
-        arrivalInput.min = formatDate(today);
-        departureInput.min = formatDate(tomorrow);
-
-        // Pokud změníš příjezd, nastav min. odjezdu minimálně na den po příjezdu
-        arrivalInput.addEventListener('change', () => {
-            const arrivalDate = new Date(arrivalInput.value);
-            const minDeparture = new Date(arrivalDate);
-            minDeparture.setDate(arrivalDate.getDate() + 1);
-
-            departureInput.min = formatDate(minDeparture);
-
-            // Pokud je aktuální odjezd menší než nové minimum, uprav ho
-            if (new Date(departureInput.value) <= arrivalDate) {
-                departureInput.value = formatDate(minDeparture);
+            } else {
+                const userEmail = localStorage.getItem("userEmail");
+                if (!userEmail) { alert("Chybí email."); return; }
+                fetch(`http://localhost:8080/api/users/by-email?email=${encodeURIComponent(userEmail)}`)
+                    .then(res => {
+                        if (!res.ok) { alert("Nepodařilo se načíst uživatele."); throw new Error(); }
+                        return res.json();
+                    }).then(user => {
+                    userData = user;
+                    createCatsAndReservation();
+                }).catch(() => {});
             }
         });
+
+    })();
+
+    // přednastavení dat kalendáře
+    function formatDate(date) {
+        const y = date.getFullYear(), m = String(date.getMonth() + 1).padStart(2, '0'), d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+    const arrivalInput = document.getElementById('arrivalDate');
+    const departureInput = document.getElementById('departureDate');
+    const today = new Date(), tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    arrivalInput.value = formatDate(today);
+    departureInput.value = formatDate(tomorrow);
+    arrivalInput.min = formatDate(today);
+    departureInput.min = formatDate(tomorrow);
+    arrivalInput.addEventListener('change', () => {
+        const arrivalDate = new Date(arrivalInput.value);
+        const minDeparture = new Date(arrivalDate);
+        minDeparture.setDate(arrivalDate.getDate() + 1);
+        departureInput.min = formatDate(minDeparture);
+        if (new Date(departureInput.value) <= arrivalDate) {
+            departureInput.value = formatDate(minDeparture);
+        }
     });
 });

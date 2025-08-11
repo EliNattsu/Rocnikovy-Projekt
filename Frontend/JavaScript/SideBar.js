@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Ovládání hamburger menu
+    // ---------- Ovládání hamburger menu ----------
     const hamButton = document.getElementById('ham-button');
     const mobileMenu = document.getElementById('menu-mobile');
 
@@ -8,28 +8,46 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             mobileMenu.classList.toggle('active');
             hamButton.classList.toggle('open');
-            // Přístupnost
-            if (hamButton.classList.contains('open')) {
-                hamButton.setAttribute('aria-label', 'Zavřít menu');
-            } else {
-                hamButton.setAttribute('aria-label', 'Otevřít menu');
-            }
+            hamButton.setAttribute(
+                'aria-label',
+                hamButton.classList.contains('open') ? 'Zavřít menu' : 'Otevřít menu'
+            );
         });
     }
 
-    // Přepnutí "Přihlásit se" <-> "Můj profil" podle přihlášení
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    // ---------- Přepnutí přihlášení / profil ----------
+    let isLoggedIn = false;
+    let userEmail = "";
+    let firstName = "";
+    let lastName = "";
+
+    try {
+        isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        userEmail = localStorage.getItem("userEmail") || "";
+        firstName = localStorage.getItem("firstName") || "";
+        lastName = localStorage.getItem("lastName") || "";
+    } catch (e) {
+        console.warn("⚠️ localStorage není dostupné, používám výchozí hodnoty:", e);
+    }
 
     const desktopLink = document.getElementById("login-profile-link");
     const mobileLink = document.getElementById("login-profile-link-mobile");
 
     if (isLoggedIn) {
+        // Pokud máme jméno a příjmení, zobrazíme je. Jinak fallback na email.
+        let profileText = "Můj profil";
+        if (firstName && lastName) {
+            profileText = `Můj profil (${firstName} ${lastName})`;
+        } else if (userEmail) {
+            profileText = `Můj profil (${userEmail})`;
+        }
+
         if (desktopLink) {
-            desktopLink.textContent = "Můj profil";
+            desktopLink.textContent = profileText;
             desktopLink.href = "AccountPage.html";
         }
         if (mobileLink) {
-            mobileLink.textContent = "Můj profil";
+            mobileLink.textContent = profileText;
             mobileLink.href = "AccountPage.html";
         }
     } else {

@@ -13,14 +13,33 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    // 2. Přihlášení: pokud není, redirect na LoginPage
-    const email = localStorage.getItem("userEmail");
+    // 2. Ověření přihlášení
+    let email = "";
+    try {
+        email = localStorage.getItem("userEmail");
+    } catch (err) {
+        console.warn("LocalStorage není dostupné", err);
+    }
     if (!email) {
         window.location.href = "LoginPage.html";
         return;
     }
 
-    // 3. Načti detail majitele (profil)
+    // 3. Předvyplnění z localStorage (rychlý náhled)
+    try {
+        const lfName = localStorage.getItem("firstName") || "";
+        const llName = localStorage.getItem("lastName") || "";
+        const lPhone = localStorage.getItem("userPhone") || "";
+
+        if (lfName) document.getElementById("owner-firstname").innerText = lfName;
+        if (llName) document.getElementById("owner-lastname").innerText = llName;
+        if (email) document.getElementById("owner-email").innerText = email;
+        if (lPhone) document.getElementById("owner-phone").innerText = lPhone;
+    } catch (e) {
+        console.warn("Nepodařilo se načíst údaje z localStorage", e);
+    }
+
+    // 4. Načti aktuální údaje z backendu
     let userData = null;
     try {
         const res = await fetch(`http://localhost:8080/api/users/by-email?email=${encodeURIComponent(email)}`);
@@ -30,19 +49,35 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("owner-lastname").innerText = userData.lastName;
             document.getElementById("owner-email").innerText = userData.email;
             document.getElementById("owner-phone").innerText = userData.phoneNumber || '';
+
+            try {
+                localStorage.setItem("firstName", userData.firstName || "");
+                localStorage.setItem("lastName", userData.lastName || "");
+                if (userData.phoneNumber) localStorage.setItem("userPhone", userData.phoneNumber);
+            } catch (err) {
+                console.warn("Nelze uložit údaje uživatele do localStorage", err);
+            }
         }
     } catch (err) {
         alert("Chyba načítání uživatele.");
         return;
     }
 
-    // 4. Funkce Odhlásit se
+    // 5. Logout
     document.querySelector(".logout-btn").addEventListener("click", () => {
-        localStorage.clear();
+        try {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("firstName");
+            localStorage.removeItem("lastName");
+            localStorage.removeItem("userPhone");
+        } catch (err) {
+            console.warn("Nelze vyčistit localStorage při logoutu", err);
+        }
         window.location.href = "LoginPage.html";
     });
 
-    // 5. Editace majitele (profil)
+    // 6. Editace majitele
     document.querySelector(".owner-edit-btn").addEventListener("click", () => {
         if (!userData) return;
         const newFirstName = prompt("Nové jméno:", userData.firstName);
@@ -65,13 +100,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                     document.getElementById("owner-lastname").innerText = updated.lastName;
                     document.getElementById("owner-phone").innerText = updated.phoneNumber || '';
                     userData = updated;
+                    try {
+                        localStorage.setItem("firstName", updated.firstName || "");
+                        localStorage.setItem("lastName", updated.lastName || "");
+                        if (updated.phoneNumber) localStorage.setItem("userPhone", updated.phoneNumber);
+                    } catch (err) {
+                        console.warn("Nelze uložit data do localStorage po úpravě profilu", err);
+                    }
                     alert("Údaje byly upraveny.");
                 })
                 .catch(() => alert("Chyba při úpravě údajů."));
         }
     });
 
-    // 6. Načtení koček uživatele
+// 7. Načtení a správa koček
     let cats = [];
     const catsListEl = document.getElementById("cats-list");
     function renderCatsList() {
@@ -90,11 +132,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
             catsListEl.appendChild(catEl);
 
-            // Buttons
             catEl.querySelector(".cat-details-btn").addEventListener("click", () => {
                 const detailsEl = catEl.querySelector(".cat-details");
                 detailsEl.style.display = detailsEl.style.display === "block" ? "none" : "block";
             });
+
             catEl.querySelector(".cat-edit-btn").addEventListener("click", () => {
                 const newName = prompt("Jméno kočky:", cat.name);
                 const newAge = prompt("Věk kočky:", cat.age);
@@ -108,7 +150,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             name: newName,
                             age: Number(newAge),
                             specialNeeds: newNeeds,
-                            userId: userData.userId // případně pole podle modelu
+                            userId: userData.userId
                         })
                     })
                         .then(resp => resp.ok ? resp.json() : Promise.reject())
@@ -120,6 +162,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         .catch(() => alert("Chyba při úpravě kočky."));
                 }
             });
+
             catEl.querySelector(".cat-delete-btn").addEventListener("click", () => {
                 if (confirm(`Opravdu smazat ${cat.name}?`)) {
                     fetch(`http://localhost:8080/api/cats/${cat.catId}`, { method: "DELETE" })
@@ -134,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         });
     }
-    // Přidat kočku
+
     document.querySelector(".add-cat-btn").addEventListener("click", () => {
         const name = prompt("Jméno kočky:");
         const age = prompt("Věk kočky:");
@@ -157,14 +200,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // Načíst ze serveru
     try {
         const catsRes = await fetch(`http://localhost:8080/api/cats/by-user/${userData.userId}`);
         if (catsRes.ok) cats = await catsRes.json();
         renderCatsList();
-    } catch { /* Kočky se nenačetly */ }
+    } catch { }
 
-    // 7. Načtení rezervací
+    // 8. Načtení a správa rezervací
     let reservations = [];
     const reservationsListEl = document.getElementById("reservations-list");
     function renderReservationsList() {
@@ -189,7 +231,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 detailsEl.style.display = detailsEl.style.display === "block" ? "none" : "block";
             });
 
-            // Upravit rezervaci
             resEl.querySelector(".res-edit-btn").addEventListener("click", () => {
                 const newStart = prompt("Nový začátek (YYYY-MM-DD):", reservation.startDate);
                 const newEnd = prompt("Nový konec (YYYY-MM-DD):", reservation.endDate);
@@ -215,7 +256,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
 
-            // Smazat rezervaci
             resEl.querySelector(".res-delete-btn").addEventListener("click", () => {
                 if (confirm("Opravdu zrušit rezervaci?")) {
                     fetch(`http://localhost:8080/api/reservations/${reservation.reservationId}`, { method: "DELETE" })
@@ -230,36 +270,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         });
     }
-    // Načíst rezervace ze serveru
+
     try {
         const resRes = await fetch(`http://localhost:8080/api/reservations/by-user/${userData.userId}`);
         if (resRes.ok) reservations = await resRes.json();
         renderReservationsList();
-    } catch { /* Rezervace se nenačetly */ }
-
-    // 8. Změna hesla (tab settings)
-    document.getElementById("settings-form").addEventListener("submit", async function(e){
-        e.preventDefault();
-        const newPw = document.getElementById("new-password").value;
-        const confirmPw = document.getElementById("confirm-password").value;
-        if (!newPw || newPw !== confirmPw) {
-            alert("Hesla se neshodují!");
-            return;
-        }
-        const oldPw = prompt("Zadejte původní heslo:");
-        if (!oldPw) return;
-
-        const resp = await fetch(`http://localhost:8080/api/users/${userData.userId}/change-password`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ oldPassword: oldPw, newPassword: newPw })
-        });
-        if (resp.ok) {
-            alert("Heslo úspěšně změněno.");
-            document.getElementById("new-password").value = "";
-            document.getElementById("confirm-password").value = "";
-        } else {
-            alert("Heslo nelze změnit, původní není správné.");
-        }
-    });
+    } catch { }
 });
