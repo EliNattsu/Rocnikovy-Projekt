@@ -22,7 +22,7 @@ public class User {
     @Column(name="email", nullable=false, unique=true, length=100)
     private String email;
 
-    @Column(name="password_hash", nullable=false, length=255)
+    @Column(name="password_hash", nullable=true)
     private String passwordHash;
 
     @Column(name="phone_number", nullable=false, unique=true, length=20)
@@ -31,12 +31,10 @@ public class User {
     @Column(name="registration_date", nullable=false)
     private LocalDateTime registrationDate;
 
-    // Vztah na Cats – pozor na serializaci, abys neměla cyklickou chybu
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "user-cats")
     private Set<Cat> cats = new HashSet<>();
 
-    // Vztah na Reservations
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "user-reservations")
     private Set<Reservation> reservations = new HashSet<>();

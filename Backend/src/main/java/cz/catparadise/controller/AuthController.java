@@ -6,6 +6,9 @@ import cz.catparadise.model.User;
 import cz.catparadise.repository.UserRepository;
 import cz.catparadise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,27 +32,36 @@ public class AuthController {
 
     // Registrace
     @PostMapping("/register")
-    public String register(@RequestBody RegistrationRequest request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            return "Uživatel s tímto e-mailem už existuje.";
+    public ResponseEntity<User> register(@RequestBody RegistrationRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
 
-        // Ověření, že heslo není prázdné
-        if (request.getPasswordHash() == null || request.getPasswordHash().isEmpty()) {
-            return "Heslo nesmí být prázdné.";
+        if (userRepository.existsByPhoneNumber(request.getPhoneNumber())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
+
+        String hashedPassword = null;
+        if (request.getPasswordHash() != null && !request.getPasswordHash().isEmpty()) {
+            hashedPassword = passwordEncoder.encode(request.getPasswordHash());
         }
 
         User user = new User(
                 request.getFirstName(),
                 request.getLastName(),
                 request.getEmail(),
-                passwordEncoder.encode(request.getPasswordHash()), // ukládáme hash
+                hashedPassword,
                 request.getPhoneNumber(),
                 LocalDateTime.now()
         );
 
-        userService.saveUser(user);
-        return "Registrace proběhla úspěšně.";
+        try {
+            User saved = userService.saveUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
     }
 
     // Login (jen ověření bez tokenu)

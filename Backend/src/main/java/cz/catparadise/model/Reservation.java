@@ -1,7 +1,6 @@
 package cz.catparadise.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -42,7 +41,6 @@ public class Reservation {
             joinColumns = @JoinColumn(name = "reservation_id"),
             inverseJoinColumns = @JoinColumn(name = "cat_id")
     )
-    @JsonManagedReference(value = "reservation-cats")
     private Set<Cat> cats = new HashSet<>();
 
     public Reservation() {}

@@ -1,5 +1,6 @@
 package cz.catparadise.service;
 
+import cz.catparadise.model.Cat;
 import cz.catparadise.model.Reservation;
 import cz.catparadise.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,8 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    // Uložení rezervace – bez validace (FE si to vyřeší)
     public Reservation saveReservation(Reservation reservation) {
-        // vygeneruj referenční číslo
         reservation.setReferenceNumber("RES-" + UUID.randomUUID().toString().substring(0, 8));
-        // nastav výchozí stav
         reservation.setStatus("pending");
         return reservationRepository.save(reservation);
     }
@@ -48,6 +46,10 @@ public class ReservationService {
         return reservationRepository.findByStatus(status);
     }
 
+    public List<Reservation> getReservationsByUser(Integer userId) {
+        return reservationRepository.findByUserUserId(userId);
+    }
+
     // Změna stavu rezervace
     public Reservation updateReservationStatus(Integer id, String newStatus) {
         Reservation reservation = reservationRepository.findById(id)
@@ -55,4 +57,14 @@ public class ReservationService {
         reservation.setStatus(newStatus);
         return reservationRepository.save(reservation);
     }
+   public Reservation addCatToReservation(Integer reservationId, Integer catId, CatService catService) {
+       Reservation reservation = reservationRepository.findById(reservationId)
+               .orElseThrow(() -> new RuntimeException("Rezervace nenalezena: " + reservationId));
+       
+       Cat cat = catService.getCatById(catId)
+               .orElseThrow(() -> new RuntimeException("Kočka nenalezena: " + catId));
+       
+       reservation.getCats().add(cat);
+       return reservationRepository.save(reservation);
+   }
 }

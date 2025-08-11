@@ -19,19 +19,19 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    // ✅ Vytvoření rezervace
+    // Vytvoření rezervace
     @PostMapping
     public Reservation createReservation(@RequestBody Reservation reservation) {
         return reservationService.saveReservation(reservation);
     }
 
-    // ✅ Výpis všech rezervací
+    // Výpis všech rezervací
     @GetMapping
     public List<Reservation> getAllReservations() {
         return reservationService.getAllReservations();
     }
 
-    // ✅ Detaily rezervace (lepší přes ResponseEntity)
+    // Detaily rezervace (lepší přes ResponseEntity)
     @GetMapping("/{id}")
     public ResponseEntity<Reservation> getReservationById(@PathVariable Integer id) {
         return reservationService.getReservationById(id)
@@ -39,13 +39,13 @@ public class ReservationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ✅ Rezervace podle statusu
+    // Rezervace podle statusu
     @GetMapping("/status/{status}")
     public List<Reservation> getReservationsByStatus(@PathVariable String status) {
         return reservationService.getReservationsByStatus(status);
     }
 
-    // ✅ Úprava statusu rezervace
+    // Úprava statusu rezervace
     @PutMapping("/{id}/status")
     public ResponseEntity<Reservation> updateReservationStatus(
             @PathVariable Integer id,
@@ -54,7 +54,7 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.updateReservationStatus(id, status));
     }
 
-    // ✅ Úprava celé rezervace (např. datumů, stavu atd.)
+    // Úprava celé rezervace (např. datumů, stavu atd.)
     @PutMapping("/{id}")
     public ResponseEntity<Reservation> updateReservation(
             @PathVariable Integer id,
@@ -67,7 +67,7 @@ public class ReservationController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    // ✅ Smazání rezervace
+    // Smazání rezervace
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Integer id) {
         reservationService.deleteReservation(id);

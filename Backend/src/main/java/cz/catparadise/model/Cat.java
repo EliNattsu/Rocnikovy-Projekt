@@ -28,8 +28,7 @@ public class Cat {
     private User user;
 
     // Vazba na rezervace
-    @ManyToMany(mappedBy = "cats", fetch = FetchType.LAZY)
-    @JsonBackReference(value = "reservation-cats")
+    @ManyToMany(mappedBy = "cats")
     private Set<Reservation> reservations = new HashSet<>();
 
     public Cat() {}
