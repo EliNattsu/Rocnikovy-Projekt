@@ -90,9 +90,11 @@ main{
 .add-cat-btn,
 .cat-edit-btn,
 .cat-details-btn,
+.cat-delete-btn,
 .res-edit-btn,
 .res-cancel-btn,
 .res-details-btn,
+.res-delete-btn,
 .change-pw-btn {
     background-color: #ed9745;
     border: none;
@@ -117,6 +119,7 @@ main{
 .res-edit-btn:hover,
 .res-cancel-btn:hover:not(:disabled),
 .res-details-btn:hover,
+.res-cancel-btn:hover:not(:disabled),
 .change-pw-btn:hover {
     background-color: #e47331;
     box-shadow: 0 5px 18px rgba(216, 127, 30, 0.75);

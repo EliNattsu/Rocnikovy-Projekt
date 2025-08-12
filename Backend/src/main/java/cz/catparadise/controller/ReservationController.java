@@ -25,6 +25,11 @@ public class ReservationController {
         return reservationService.saveReservation(reservation);
     }
 
+    @GetMapping("/by-user/{userId}")
+    public List<Reservation> getReservationsByUser(@PathVariable Integer userId) {
+        return reservationService.getReservationsByUser(userId);
+    }
+
     // Výpis všech rezervací
     @GetMapping
     public List<Reservation> getAllReservations() {

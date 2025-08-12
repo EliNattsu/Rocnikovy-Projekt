@@ -1,10 +1,16 @@
 package cz.catparadise.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "catId"
+)
 @Entity
 @Table(name = "Cats")
 public class Cat {
@@ -24,11 +30,11 @@ public class Cat {
     // Vazba na uživatele
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable=false)
-    @JsonBackReference(value = "user-cats") // vlastní reference název pro větší kontrolu
+    @JsonBackReference(value = "user-cats")
     private User user;
 
     // Vazba na rezervace
-    @ManyToMany(mappedBy = "cats")
+    @ManyToMany(mappedBy = "cats", fetch = FetchType.LAZY)
     private Set<Reservation> reservations = new HashSet<>();
 
     public Cat() {}

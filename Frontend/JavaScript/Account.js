@@ -122,14 +122,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             const catEl = document.createElement("div");
             catEl.className = "cat-item";
             catEl.innerHTML = `
-                <b>${cat.name}</b> (Věk: ${cat.age}) 
-                <button class="cat-details-btn">Detaily</button>
-                <button class="cat-edit-btn">Upravit</button>
-                <button class="cat-delete-btn">Smazat</button>
-                <div class="cat-details" style="display:none;">
-                    <p>Speciální potřeby: ${cat.specialNeeds || "Žádné"}</p>
-                </div>
-            `;
+            <b>${cat.catName}</b> (Věk: ${cat.age}) 
+            <button class="cat-details-btn">Detaily</button>
+            <button class="cat-edit-btn">Upravit</button>
+            <button class="cat-delete-btn">Smazat</button>
+            <div class="cat-details" style="display:none;">
+                <p>Poznámky: ${cat.notes || "Žádné"}</p>
+            </div>
+        `;
             catsListEl.appendChild(catEl);
 
             catEl.querySelector(".cat-details-btn").addEventListener("click", () => {
@@ -138,18 +138,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             catEl.querySelector(".cat-edit-btn").addEventListener("click", () => {
-                const newName = prompt("Jméno kočky:", cat.name);
+                const newCatName = prompt("Jméno kočky:", cat.catName);
                 const newAge = prompt("Věk kočky:", cat.age);
-                const newNeeds = prompt("Speciální potřeby:", cat.specialNeeds || "");
-                if (newName && newAge) {
+                const newNotes = prompt("Poznámky:", cat.notes || "");
+                if (newCatName && newAge) {
                     fetch(`http://localhost:8080/api/cats/${cat.catId}`, {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             ...cat,
-                            name: newName,
+                            catName: newCatName,
                             age: Number(newAge),
-                            specialNeeds: newNeeds,
+                            notes: newNotes,
                             userId: userData.userId
                         })
                     })
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             catEl.querySelector(".cat-delete-btn").addEventListener("click", () => {
-                if (confirm(`Opravdu smazat ${cat.name}?`)) {
+                if (confirm(`Opravdu smazat ${cat.catName}?`)) {
                     fetch(`http://localhost:8080/api/cats/${cat.catId}`, { method: "DELETE" })
                         .then(resp => resp.ok ? cat.catId : Promise.reject())
                         .then(() => {
@@ -179,15 +179,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     document.querySelector(".add-cat-btn").addEventListener("click", () => {
-        const name = prompt("Jméno kočky:");
+        const catName = prompt("Jméno kočky:");
         const age = prompt("Věk kočky:");
-        const needs = prompt("Speciální potřeby:");
-        if (name && age) {
+        const notes = prompt("Poznámky:");
+        if (catName && age) {
             fetch("http://localhost:8080/api/cats", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    name, age: Number(age), specialNeeds: needs, userId: userData.userId
+                    catName,
+                    age: Number(age),
+                    notes,
+                    userId: userData.userId
                 })
             })
                 .then(resp => resp.ok ? resp.json() : Promise.reject())
@@ -200,11 +203,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    try {
-        const catsRes = await fetch(`http://localhost:8080/api/cats/by-user/${userData.userId}`);
-        if (catsRes.ok) cats = await catsRes.json();
-        renderCatsList();
-    } catch { }
+        fetch(`http://localhost:8080/api/cats/by-user/${userData.userId}`)
+            .then(async res => {
+                if (!res.ok) {
+                    // Načti text pro diagnostiku
+                    const text = await res.text();
+                    throw new Error(`Chyba ${res.status}: ${text.substring(0, 200)}...`);
+                }
+
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    const text = await res.text();
+                    throw new Error("Odpověď není JSON: " + text.substring(0, 200) + "...");
+                }
+
+                return res.json();
+            })
+            .then(data => {
+                console.log("Načtené kočky:", data);
+                cats = data;
+                renderCatsList();
+            })
+            .catch(err => {
+                console.error("Chyba při načítání koček:", err);
+            })
 
     // 8. Načtení a správa rezervací
     let reservations = [];
@@ -221,7 +243,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <button class="res-delete-btn">Zrušit</button>
                 <div class="res-details" style="display:none;">
                     <p>Status: ${reservation.status}</p>
-                    <p>Kočka: ${reservation.catId}</p>
+                    <p>Kočky: ${reservation.cats && reservation.cats.length > 0
+                ? reservation.cats.map(cat => cat.catName).join(", ")
+                : "Žádná"}</p>
                 </div>
             `;
             reservationsListEl.appendChild(resEl);
@@ -272,8 +296,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        const resRes = await fetch(`http://localhost:8080/api/reservations/by-user/${userData.userId}`);
-        if (resRes.ok) reservations = await resRes.json();
-        renderReservationsList();
-    } catch { }
+        fetch(`http://localhost:8080/api/reservations/by-user/${userData.userId}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Chyba: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                reservations = data;
+                console.log("Načtené rezervace:", reservations);
+                renderReservationsList();
+            })
+            .catch(err => {
+                console.error("Chyba při načítání rezervací:", err);
+            });
+    } catch (err) {
+        console.error("Neočekávaná chyba:", err);
+    }
 });
