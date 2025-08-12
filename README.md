@@ -16,6 +16,6 @@ Uživatelé se mohou registrovat, spravovat své kočky a vytvářet rezervace o
 - `/api/users` – správa uživatelů
 
 - # 👤 Autor
-Eliska Hrda – školní projekt `snapshot 0.0.1`
+Eliška Hrdá – školní projekt `snapshot 0.0.1`
 
 https://elinattsu.github.io/CatParadise-Frontend/
