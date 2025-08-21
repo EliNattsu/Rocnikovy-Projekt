@@ -18,4 +18,4 @@ Uživatelé se mohou registrovat, spravovat své kočky a vytvářet rezervace o
 - # 👤 Autor
 Eliška Hrdá – školní projekt `snapshot 0.0.1`
 
-https://elinattsu.github.io/CatParadise-Frontend/
+http://cat.paradise.hotel.cz/
